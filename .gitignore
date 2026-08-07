@@ -1,0 +1,9 @@
+# 講師用（新人には配布しない）
+instructor/
+
+# 配布素材（サイズが大きいため、GitHubには載せない。教育担当から直接渡す）
+comp/
+material/photos/
+material/logo.svg
+
+.DS_Store

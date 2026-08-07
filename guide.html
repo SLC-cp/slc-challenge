@@ -1,0 +1,1020 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>株式会社SLC｜制作研修 カンプどおりに作る、最初のワンサイト</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Zen+Old+Mincho:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#faf7f0; --panel:#ffffff; --ink:#26313a; --sub:#69757d; --line:#ded8ca;
+    --accent:#13837e; --accent-dark:#0d6460; --navy:#0a2742; --navy-d:#071c30;
+    --marker:rgba(19,131,126,.18); --ng:#a4553c; --todo:#b07d1a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:"BIZ UDPGothic","Hiragino Sans","Yu Gothic",sans-serif;color:var(--ink);background:var(--bg);
+       font-size:15.5px;line-height:1.9;}
+  .doc{max-width:860px;margin:0 auto;padding:0 28px 120px;}
+  p{margin-bottom:12px;}
+  .sub{color:var(--sub);}
+  em{font-style:normal;background:linear-gradient(transparent 62%,var(--marker) 62%);font-weight:700;}
+  .mincho{font-family:"Zen Old Mincho","Hiragino Mincho ProN","Yu Mincho",serif;font-weight:600;}
+  code{font-family:"SF Mono",Menlo,Consolas,monospace;font-size:.92em;background:#f0ece1;border:1px solid var(--line);
+       padding:1px 7px;border-radius:3px;word-break:break-all;}
+  pre{background:var(--navy-d);color:#dbe6ee;font-family:"SF Mono",Menlo,Consolas,monospace;font-size:13.5px;
+      line-height:1.8;padding:16px 22px;overflow-x:auto;margin:10px 0 16px;}
+  pre b{color:#9fd3ce;font-weight:400;}
+
+  /* ── 表紙 ── */
+  .cover{padding:88px 0 64px;position:relative;}
+  .cover .kind{display:inline-block;background:var(--navy);color:#fff;font-size:12.5px;letter-spacing:.18em;
+               padding:5px 18px;margin-bottom:30px;font-weight:700;}
+  .cover h1{font-size:38px;line-height:1.55;letter-spacing:.02em;}
+  .cover h1 .accent{color:var(--accent-dark);}
+  .cover .lede{margin-top:22px;color:var(--sub);font-size:16px;max-width:38em;line-height:1.95;}
+  .cover .meta{margin-top:30px;color:var(--sub);font-size:13px;letter-spacing:.08em;}
+
+  /* ── 章バナー ── */
+  .chapter{background:var(--navy);padding:44px 48px;margin:80px 0 36px;}
+  .chapter .n{font-size:13.5px;color:#7fb9b4;letter-spacing:.24em;font-weight:700;margin-bottom:12px;}
+  .chapter h2{font-size:30px;color:#fff;line-height:1.5;letter-spacing:.02em;padding-left:22px;
+              border-left:5px solid var(--accent);}
+  .chapter .desc{margin-top:16px;padding-left:27px;color:#b8c6d1;font-size:15px;line-height:1.9;}
+
+  /* ── 小見出し ── */
+  .header{display:flex;align-items:center;gap:13px;padding-bottom:10px;border-bottom:2px solid var(--accent);
+          margin:44px 0 18px;}
+  .header .bar{width:8px;height:26px;background:var(--accent);flex:none;}
+  .header h3{font-size:21px;font-weight:700;letter-spacing:.03em;line-height:1.4;}
+  .lead{font-size:18px;font-weight:700;line-height:1.7;margin-bottom:8px;}
+
+  /* ── 行リスト ── */
+  .rows{background:var(--panel);border:1px solid var(--line);margin-bottom:16px;}
+  .row{display:flex;border-bottom:1px solid var(--line);padding:13px 22px;gap:22px;align-items:baseline;}
+  .row:last-child{border-bottom:none;}
+  .row .t{width:215px;flex:none;font-weight:700;font-size:15.5px;line-height:1.6;color:var(--accent-dark);}
+  .row .d{flex:1;font-size:14.5px;line-height:1.8;}
+
+  /* ── ルールブロック ── */
+  .rule{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--accent);
+        padding:14px 22px;margin-bottom:12px;}
+  .rule .rt{font-size:17px;font-weight:700;margin-bottom:3px;}
+  .rule .rt .n{color:var(--accent);margin-right:10px;}
+  .rule p{font-size:14.5px;color:var(--sub);margin-bottom:0;line-height:1.8;}
+
+  /* ── 対比2カラム ── */
+  .vs{display:flex;gap:14px;margin-bottom:16px;}
+  .vs > div{flex:1;background:var(--panel);border:1px solid var(--line);padding:20px 24px 16px;}
+  .vs .head{font-size:16px;font-weight:700;margin-bottom:12px;padding:4px 12px;color:#fff;background:var(--accent);display:inline-block;}
+  .vs > div.ng .head{background:var(--ng);}
+  ul{list-style:none;}
+  ul li{position:relative;padding-left:19px;margin-bottom:9px;font-size:14.5px;line-height:1.75;}
+  ul li::before{content:"";position:absolute;left:2px;top:.78em;width:9px;height:3px;background:var(--accent);}
+  .vs > div.ng li::before{background:var(--ng);}
+  ul li small{display:block;color:var(--sub);font-size:13px;line-height:1.7;}
+
+  /* ── 比較表 ── */
+  .matrix{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);margin-bottom:16px;}
+  .matrix th,.matrix td{border:1px solid var(--line);padding:10px 14px;text-align:left;vertical-align:top;
+                        font-size:14px;line-height:1.7;}
+  .matrix thead th{background:var(--navy);color:#fff;font-size:14.5px;font-weight:700;letter-spacing:.03em;}
+  .matrix tbody th{background:#f2efe6;font-weight:700;font-size:14px;color:var(--accent-dark);line-height:1.7;}
+  .matrix tbody th{width:38%;}
+  .matrix td b{color:var(--accent-dark);}
+  .matrix td code{white-space:nowrap;}
+  .swatch{display:inline-block;width:13px;height:13px;border:1px solid rgba(0,0,0,.18);vertical-align:-1px;margin-right:8px;}
+
+  /* ── 手順ステップ ── */
+  .steps{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+  .steps .st{display:flex;gap:16px;background:var(--panel);border:1px solid var(--line);padding:13px 20px;align-items:baseline;}
+  .steps .st .num{flex:none;width:28px;height:28px;background:var(--accent);color:#fff;font-size:14px;font-weight:700;
+                  display:flex;align-items:center;justify-content:center;align-self:flex-start;margin-top:3px;}
+  .steps .st .tx{flex:1;}
+  .steps .st .tx b{display:block;font-size:15.5px;margin-bottom:2px;}
+  .steps .st .tx span{font-size:14px;color:var(--sub);line-height:1.8;display:block;}
+  .steps .st .tx img{display:block;width:100%;max-width:560px;border:1px solid var(--line);margin-top:10px;}
+
+  /* ── 演習STEPブロック ── */
+  .ex{background:var(--panel);border:1px solid var(--line);margin:26px 0;}
+  .ex .ex-head{display:flex;align-items:center;gap:14px;background:#f2efe6;border-bottom:1px solid var(--line);padding:12px 22px;}
+  .ex .ex-head .stepno{background:var(--navy);color:#fff;font-size:12.5px;font-weight:700;letter-spacing:.12em;padding:3px 13px;flex:none;}
+  .ex .ex-head b{font-size:17px;}
+  .ex .ex-head .time{margin-left:auto;font-size:12.5px;color:var(--sub);white-space:nowrap;}
+  .ex .ex-body{padding:18px 24px 8px;}
+  .ex .file{font-size:13px;color:var(--sub);margin-bottom:10px;}
+  .ex .file code{background:#fdf6df;border-color:#e5d9a8;}
+  .ex .check{border-top:1px dashed var(--line);margin-top:8px;padding:12px 0 14px;font-size:14.5px;line-height:1.8;}
+  .ex .check .ck{display:inline-block;background:var(--accent);color:#fff;font-size:12px;font-weight:700;
+                 letter-spacing:.1em;padding:2px 11px;margin-right:12px;}
+
+  /* ── 依頼文（コピー用） ── */
+  .prompt{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--navy);
+          padding:14px 22px 16px;margin-bottom:14px;}
+  .prompt .pl{display:block;font-size:11.5px;font-weight:700;letter-spacing:.14em;color:var(--accent-dark);
+              margin-bottom:8px;}
+  .prompt p{font-size:14px;line-height:1.95;margin-bottom:0;}
+  .prompt .li{display:block;padding-left:14px;position:relative;font-size:14px;line-height:1.9;}
+  .prompt .li::before{content:"・";position:absolute;left:0;color:var(--sub);}
+
+  /* ── 要記入・注意 ── */
+  .todo{background:#fdf8ea;border:1px dashed var(--todo);padding:13px 20px;margin-bottom:14px;}
+  .todo .tt{font-size:14px;font-weight:700;color:var(--todo);margin-bottom:3px;letter-spacing:.04em;}
+  .todo p{font-size:14px;color:var(--sub);margin-bottom:0;line-height:1.8;}
+
+  /* ── 1 point ── */
+  .onepoint{background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--accent);
+            padding:28px 36px 26px;margin:36px 0;}
+  .onepoint .tag{display:inline-block;background:var(--accent);color:#fff;font-size:12px;font-weight:700;
+                 letter-spacing:.16em;padding:4px 14px;margin-bottom:16px;}
+  .onepoint h3{font-size:23px;font-weight:700;line-height:1.5;margin-bottom:6px;}
+  .onepoint .note{color:var(--sub);font-size:14.5px;line-height:1.85;}
+
+  /* ── スラ先輩 ── */
+  .mascot{--mc-line:#0a2742;--mc-acc:#13837e;--mc-face:#ffffff;width:96px;height:auto;flex:none;}
+  .mascot .ln{fill:var(--mc-face);stroke:var(--mc-line);stroke-width:3;stroke-linejoin:round;}
+  .mascot .st{fill:none;stroke:var(--mc-line);stroke-width:3;stroke-linecap:round;}
+  .mascot .ac{fill:var(--mc-acc);}
+  .mascot .acst{fill:none;stroke:var(--mc-acc);stroke-width:4;stroke-linecap:round;}
+  .mascot .eye{fill:var(--mc-line);}
+  .mascot .cheek{fill:var(--mc-acc);opacity:.28;}
+  .says{display:flex;align-items:center;gap:14px;margin:22px 0;justify-content:flex-end;}
+  .bubble{position:relative;background:#fff;border:1px solid var(--line);border-radius:14px;
+          padding:13px 20px;font-size:14.5px;line-height:1.85;max-width:32em;}
+  .bubble::after{content:"";position:absolute;right:-8px;top:50%;margin-top:-8px;width:15px;height:15px;
+                 background:#fff;border-right:1px solid var(--line);border-top:1px solid var(--line);
+                 transform:rotate(45deg);}
+  .bubble b{color:var(--accent-dark);}
+
+  /* ── 目次 ── */
+  .toc{background:var(--panel);border:1px solid var(--line);padding:22px 30px;margin:36px 0;}
+  .toc ol{list-style:none;counter-reset:toc;}
+  .toc ol li{counter-increment:toc;padding-left:0;margin-bottom:6px;font-size:14.5px;}
+  .toc ol li::before{content:none;}
+  .toc ol li a{color:var(--ink);text-decoration:none;display:flex;gap:14px;align-items:baseline;}
+  .toc ol li a::before{content:counter(toc,decimal-leading-zero);font-size:12px;color:var(--accent);
+                       font-weight:700;letter-spacing:.08em;}
+  .toc ol li a:hover{color:var(--accent-dark);text-decoration:underline;}
+
+  /* ── つよさウィンドウ ── */
+  .prog{position:fixed;top:26px;right:26px;width:244px;background:var(--navy-d);padding:5px;z-index:50;
+        font-size:13px;box-shadow:0 2px 7px rgba(7,28,48,.24);}
+  .prog .win{border:2px solid #fff;padding:13px 15px 12px;color:#fff;}
+  .prog .lvline{display:flex;align-items:flex-start;gap:9px;}
+  .prog .lvtx{flex:1;min-width:0;}
+  .prog .lv{font-size:12px;color:#d5e6f0;letter-spacing:.1em;flex:none;}
+  .prog .lv b{font-size:23px;color:#fff;margin-left:1px;font-family:"Zen Old Mincho",serif;}
+  .prog .ttl{font-size:16px;line-height:1.4;letter-spacing:.04em;margin-left:6px;}
+  .prog .able{font-size:11.5px;color:#d5e6f0;line-height:1.6;margin:3px 0 0;}
+  .lvmascot{width:62px;flex:none;margin-top:-2px;--mc-line:#0a2742;--mc-acc:#2fa9a2;}
+  .lvmascot .gear{display:none;}
+  .lvmascot .crown{fill:#f0c96a;stroke:#0a2742;stroke-width:2.5;stroke-linejoin:round;}
+  .lvmascot .arm{fill:none;stroke:#fff;stroke-width:5;stroke-linecap:round;}
+  .lvmascot .pen{fill:var(--mc-acc);stroke:#fff;stroke-width:1.6;stroke-linejoin:round;}
+  .lvmascot .nib{fill:#fff;}
+  .prog.clear .lvmascot{--mc-acc:#13837e;}
+  .prog .meter{display:flex;gap:3px;margin:11px 0 6px;}
+  .prog .meter i{flex:1;height:9px;background:#1f4362;border:1px solid #5d86a3;
+                 transition:background .35s ease,border-color .35s ease;}
+  .prog .meter i.on{background:#4dbdb6;border-color:#8fe4dd;}
+  .prog .cnt{color:#e8f2f7;font-size:11.5px;letter-spacing:.06em;margin:0;}
+  .prog .cnt b{color:#fff;font-size:14px;letter-spacing:0;}
+  .prog .cnt .next{display:block;color:#c6dbe8;font-size:11px;letter-spacing:.04em;margin-top:2px;}
+  .prog .wz{margin:12px 0 7px;padding-top:10px;border-top:1px solid #5d86a3;font-size:11px;color:#d5e6f0;
+            letter-spacing:.18em;}
+  .prog .skills{list-style:none;margin:0;}
+  .prog .skills li{list-style:none;position:relative;padding:0 0 0 16px;margin-bottom:6px;font-size:12.5px;
+                   line-height:1.5;color:#bcd2e0;}
+  .prog .skills li::before{content:"▶";position:absolute;left:0;top:0;font-size:9px;line-height:1.9;
+                           color:#5d86a3;transition:color .3s ease;}
+  .prog .skills li.part::before{color:#c6dbe8;}
+  .prog .skills li.on::before{color:#8fe4dd;}
+  .prog .skills li.on{color:#fff;font-weight:700;}
+  .prog .skills li .n{font-size:11px;color:#c6dbe8;margin-left:5px;letter-spacing:.03em;}
+  .prog .skills li .sub{display:block;font-size:10.5px;color:#a9c4d4;letter-spacing:.02em;line-height:1.5;}
+  .prog .skills li.on .sub{color:#d5e6f0;}
+  .prog .reset{display:block;margin-top:11px;background:none;border:none;padding:0;cursor:pointer;
+               font:inherit;font-size:11px;color:#c6dbe8;text-decoration:underline;letter-spacing:.03em;}
+  .prog .reset:hover{color:#e8a98f;}
+  .prog .fold{display:none;}
+  .prog.clear .win{border-color:#f0c96a;}
+  .prog.clear .ttl{color:#f7dc9c;}
+  .lvup{position:fixed;top:26px;right:288px;z-index:60;background:var(--navy-d);padding:4px;
+        box-shadow:0 2px 7px rgba(7,28,48,.24);opacity:0;transform:translateY(-4px);
+        pointer-events:none;transition:opacity .3s ease,transform .3s ease;max-width:20em;}
+  .lvup .win{border:2px solid #fff;color:#fff;padding:11px 16px;font-size:13.5px;line-height:1.7;}
+  .lvup.show{opacity:1;transform:translateY(0);}
+  .lvup b{color:#9fd3ce;font-family:"Zen Old Mincho",serif;letter-spacing:.04em;}
+  .lvup .em{color:#f7dc9c;}
+
+  /* 完了トグル */
+  .done{flex:none;display:inline-flex;align-items:center;gap:7px;background:none;border:1px solid var(--line);
+        padding:4px 11px 4px 8px;cursor:pointer;font:inherit;font-size:12px;color:var(--sub);letter-spacing:.04em;
+        border-radius:3px;line-height:1.4;}
+  .done:hover{border-color:var(--accent);color:var(--accent-dark);}
+  .done .bx{width:13px;height:13px;border:1px solid var(--sub);background:#fff;flex:none;position:relative;}
+  .done[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .done[aria-pressed="true"] .bx{background:#fff;border-color:#fff;}
+  .done[aria-pressed="true"] .bx::after{content:"";position:absolute;left:3px;top:0px;width:5px;height:9px;
+        border:solid var(--accent-dark);border-width:0 2px 2px 0;transform:rotate(42deg);}
+  .ex.is-done .ex-head{background:#eaf2f0;}
+  .ex.is-done .ex-head .stepno{background:var(--accent);}
+  .rows .row .done{align-self:flex-start;margin-top:-1px;}
+  .rows .row.is-done .t{color:var(--sub);}
+
+  @media screen and (max-width:1400px){
+    .prog{top:auto;bottom:0;right:0;left:0;width:auto;padding:0;box-shadow:0 -2px 6px rgba(7,28,48,.2);}
+    .prog .win{border:none;border-top:2px solid #fff;padding:9px 20px 10px;}
+    .prog .lvline{align-items:baseline;}
+    .prog .able{display:inline;margin-left:12px;}
+    .prog .meter{margin:7px 0 0;max-width:520px;}
+    .prog .cnt{position:absolute;right:140px;top:13px;text-align:right;}
+    .prog .cnt .next{display:inline;margin-left:8px;}
+    .prog .wz,.prog .skills,.prog .reset{display:none;}
+    .prog.open .wz,.prog.open .skills,.prog.open .reset{display:block;}
+    .prog.open .skills{columns:2;column-gap:26px;max-width:600px;}
+    .prog .fold{display:block;position:absolute;right:16px;top:10px;background:none;border:1px solid #c6dbe8;
+                padding:3px 9px;font:inherit;font-size:12px;color:#fff;cursor:pointer;
+                min-width:104px;text-align:center;z-index:1;}
+    .lvup{right:20px;top:auto;bottom:104px;}
+    body{padding-bottom:74px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .prog .meter i,.prog .skills li::before,.lvup{transition:none;}
+  }
+
+  /* ── 印刷 ── */
+  @media print{
+    @page{size:A4;margin:14mm 13mm;}
+    body{background:#fff;font-size:13px;}
+    .doc{max-width:none;padding:0;}
+    .chapter{break-before:page;margin-top:0;}
+    .cover{padding-top:24mm;}
+    .ex,.rows,.vs,.steps .st,.onepoint,.rule,.todo{break-inside:avoid;}
+    .prog,.lvup,.done{display:none !important;}
+    .ex.is-done .ex-head{background:#f2efe6;}
+    .toc{break-after:page;}
+    a{color:inherit;text-decoration:none;}
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+
+<!-- ===== 表紙 ===== -->
+<header class="cover">
+  <span class="kind">社内資料｜制作研修</span>
+  <h1 class="mincho">カンプどおりに作る、<br>最初の<span class="accent">ワンサイト</span>。</h1>
+  <p class="lede">社内のWordPressテンプレート「template_theme」を複製して、デザインカンプを1ページ再現するまでの手順書です。HTMLとCSSが書ければ進められます。PHPは読めなくて大丈夫です——本当です。この手順書のとおりに進めて、詰まったら遠慮なく先輩を呼んでください。</p>
+  <div class="meta">株式会社SLC　制作研修（Web制作 コーディング編）</div>
+  <div class="says"><div class="bubble">研修スライドぶりだね、スラ先輩です。<br>コーディングもやることは同じ。<b>1個ずつ確認しながら</b>進めれば必ず最後まで行けるよ。</div><svg class="mascot" viewBox="0 0 100 118" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path class="ln" d="M28 118 v-14 a22 22 0 0 1 44 0 v14 z"/>
+  <path class="st" d="M42 96 l8 8 l8 -8" stroke-width="2.5"/>
+  <circle class="ln" cx="50" cy="56" r="30"/>
+  <path class="st" d="M50 27 q3 -11 11 -13 q-5 7 -3 13"/>
+  <path class="acst" d="M20 56 a30 30 0 0 1 60 0"/>
+  <rect class="ac" x="13" y="48" width="12" height="18" rx="4"/>
+  <rect class="ac" x="75" y="48" width="12" height="18" rx="4"/>
+  <path class="acst" d="M19 66 q-2 13 15 9" stroke-width="3"/>
+  <circle class="ac" cx="34" cy="75" r="3.2"/>
+  <ellipse class="cheek" cx="33" cy="65" rx="5.5" ry="3.6"/>
+  <ellipse class="cheek" cx="67" cy="65" rx="5.5" ry="3.6"/>
+  <circle class="eye" cx="40" cy="54" r="3.6"/>
+  <circle class="eye" cx="60" cy="54" r="3.6"/>
+  <path class="st" d="M45 67 q5 6 10 0" stroke-width="2.6"/>
+</svg></div>
+</header>
+
+<!-- ===== 目次 ===== -->
+<nav class="toc">
+  <ol>
+    <li><a href="#ch0">この手順書について</a></li>
+    <li><a href="#ch1">WordPressの、ほんとに最低限</a></li>
+    <li><a href="#ch2">作業環境をつくる（お名前.comのテスト環境）</a></li>
+    <li><a href="#ch3">テーマを複製する</a></li>
+    <li><a href="#ch4">触っていいファイル・ダメなファイル</a></li>
+    <li><a href="#ch5">カンプを読む</a></li>
+    <li><a href="#ch6">演習：カンプを再現する（STEP 0〜7）</a></li>
+    <li><a href="#ch7">最終チェックと提出</a></li>
+    <li><a href="#ch8">付録：つまずき集</a></li>
+  </ol>
+</nav>
+
+<!-- ================= 0章 ================= -->
+<section class="chapter" id="ch0">
+  <div class="n">CHAPTER 00</div>
+  <h2 class="mincho">この手順書について</h2>
+  <p class="desc">なにを作るのか、どこまでやるのか。最初に全体を見ておきます。1分で読めます。</p>
+</section>
+
+<p class="lead">ゴールは「カンプの再現」です。</p>
+<p>配布フォルダの <code>comp/comp-pc.jpg</code>（PC幅1440px）と <code>comp/comp-sp.jpg</code>（スマホ幅375px）が、今回のデザインカンプです。架空の案件「永嶌歯科クリニック」のトップページとして、このカンプと<em>見た目が一致するところまで</em>テーマを作り込みます。実案件のトップページと同じ、約22ブロックのフルボリュームです。</p>
+<div class="rows">
+  <div class="row"><div class="t">やること</div><div class="d">テーマの複製 → 作業環境の用意 → カンプを見ながらCSS（と少しのHTML）を実装 → 見た目の突き合わせ</div></div>
+  <div class="row"><div class="t">やらないこと</div><div class="d"><b>本番サーバーへの反映はこの研修ではやりません。</b>本番は手順も緊張感も別物なので、先輩と一緒にやる次の段階です。ほかに、下層ページ・お問い合わせフォーム・SEO設定・FVのスライダー化（JS）も今回は範囲外です</div></div>
+  <div class="row"><div class="t">必要なスキル</div><div class="d">HTMLとCSSが書けること。それだけです。PHPのファイルを開きますが、読めなくても進められるように書いてあります</div></div>
+  <div class="row"><div class="t">所要の目安</div><div class="d">2〜3週間。実案件1本ぶんの物量なので、1日で終わるものではありません。速さより「どこまでできて、どこで詰まったか」を言えることのほうが大事です</div></div>
+  <div class="row"><div class="t">配布物</div><div class="d">この手順書（guide.html）／カンプ画像（comp/）／素材（material/ … ロゴSVG・写真23枚・手順書用の図解画像。写真はUnsplashのフリー素材で、ファイル名が使う場所の名前になっています。例：fv.jpg＝ファーストビュー、team.jpg＝スタッフ集合）</div></div>
+</div>
+<p class="sub">進め方はシンプルで、6章の STEP 0〜9 を順番にこなすだけです。1〜5章はそのための準備と予備知識です。</p>
+
+<!-- ================= 1章 ================= -->
+<section class="chapter" id="ch1">
+  <div class="n">CHAPTER 01</div>
+  <h2 class="mincho">WordPressの、ほんとに最低限</h2>
+  <p class="desc">WordPressの解説書は分厚いですが、今回の作業に必要な知識は3つだけです。それ以外は、必要になったときに覚えれば十分です。</p>
+</section>
+
+<div class="rule">
+  <div class="rt"><span class="n">1</span>テーマ＝「サイトの見た目一式」が入ったフォルダ</div>
+  <p>WordPressの見た目は「テーマ」というフォルダで決まります。今回配られる template_theme もただのフォルダで、中にPHP・CSS・JSのファイルが入っています。このフォルダを丸ごとコピーして改造するのが、SLCのサイト制作の基本形です。</p>
+</div>
+<div class="rule">
+  <div class="rt"><span class="n">2</span>PHPファイル＝ところどころに「穴」があいたHTML</div>
+  <p>テーマの中の .php ファイルを開くと、見慣れたHTMLの中に <code>&lt;?php ... ?&gt;</code> という区間が混ざっています。ここはWordPressが後から中身を流し込む「穴」です。<b>穴の中は今回いっさい触りません。</b>穴の周りのHTMLとクラス名だけを、カンプに合わせて書き換えます。</p>
+</div>
+<div class="rule">
+  <div class="rt"><span class="n">3</span>front-page.php＝トップページ、page.php＝下層ページ</div>
+  <p>「どのファイルがどのページになるか」はファイル名で決まっています。今回触るのはトップページ＝ <code>front-page.php</code> だけです。下層（page.php ほか）は次の研修で扱います。</p>
+</div>
+<div class="says"><div class="bubble">「ループ」とか「フック」とか、WordPress用語はまだ<b>知らなくていい</b>よ。この3つさえ分かってれば今回の作業は全部できるから。</div><svg class="mascot" viewBox="0 0 100 118" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path class="ln" d="M28 118 v-14 a22 22 0 0 1 44 0 v14 z"/>
+  <path class="st" d="M42 96 l8 8 l8 -8" stroke-width="2.5"/>
+  <circle class="ln" cx="50" cy="56" r="30"/>
+  <path class="st" d="M50 27 q3 -11 11 -13 q-5 7 -3 13"/>
+  <path class="acst" d="M20 56 a30 30 0 0 1 60 0"/>
+  <rect class="ac" x="13" y="48" width="12" height="18" rx="4"/>
+  <rect class="ac" x="75" y="48" width="12" height="18" rx="4"/>
+  <path class="acst" d="M19 66 q-2 13 15 9" stroke-width="3"/>
+  <circle class="ac" cx="34" cy="75" r="3.2"/>
+  <ellipse class="cheek" cx="33" cy="65" rx="5.5" ry="3.6"/>
+  <ellipse class="cheek" cx="67" cy="65" rx="5.5" ry="3.6"/>
+  <circle class="eye" cx="40" cy="54" r="3.6"/>
+  <circle class="eye" cx="60" cy="54" r="3.6"/>
+  <path class="st" d="M45 67 q5 6 10 0" stroke-width="2.6"/>
+</svg></div>
+
+<!-- ================= 2章 ================= -->
+<section class="chapter" id="ch2">
+  <div class="n">CHAPTER 02</div>
+  <h2 class="mincho">作業環境をつくる<br>（お名前.comのテスト環境）</h2>
+  <p class="desc">会社で用意している、お名前.comサーバー上のテスト用WordPressを使います。本物のサーバーで動く本物のWordPressです。ただし1つだけ、先に覚えてほしい原則があります。</p>
+</section>
+
+<div class="rule">
+  <div class="rt"><span class="n">原則</span>テスト環境は「表示確認器」。あなたの成果物は、手元のテーマフォルダ</div>
+  <p><b>コードの正本（マスター）は常に自分のPCのテーマフォルダ</b>に置き、テスト環境には「zipにして流し込んで表示を見るだけ」という役割分担にします。この形なら、テスト環境がいつ初期化されても失うものはありません。逆に、WordPressの管理画面にある「テーマファイルエディター」で直接コードを書くのは禁止です——手元の正本とズレて、どちらが本物か分からなくなります。</p>
+</div>
+
+<div class="header"><span class="bar"></span><h3>最初のセットアップ</h3></div>
+<div class="steps">
+  <div class="st"><span class="num">1</span><div class="tx"><b>テスト環境の情報を受け取る</b><span>テスト環境のURLと管理画面のログイン情報は、教育担当から受け取ります。下の枠にメモしておいてください。</span></div></div>
+  <div class="st"><span class="num">2</span><div class="tx"><b>管理画面にログインする</b><span>テスト環境のURLの末尾に <code>/wp-admin/</code> を付けるとログイン画面が開きます。開いたら<b>必ずブックマーク</b>してください。本番サイトの管理画面と取り違えないためです。</span></div></div>
+  <div class="st"><span class="num">3</span><div class="tx"><b>入れたことを確認する</b><span>外観 → テーマ の一覧が開ければ準備完了です。</span></div></div>
+</div>
+<div class="todo">
+  <div class="tt">【要記入】テスト環境の情報（教育担当から受け取って書く）</div>
+  <p>テスト環境URL：　　　　　　　　　　　　　　　／管理画面ID：　　　　　　　　／PW：教育担当の指示に従って保管（この紙には書かない）</p>
+</div>
+<div class="rule">
+  <div class="rt"><span class="n">注意</span>テスト環境は共用です</div>
+  <p>触っていいのは<b>自分のテーマだけ</b>。他の人のテーマ・プラグイン・WordPressの設定（パーマリンク以外）は変更しないでください。困ったら手を止めて教育担当へ。</p>
+</div>
+
+<div class="header"><span class="bar"></span><h3>テーマを反映する基本ループ（何十回もやります）</h3></div>
+<div class="steps">
+  <div class="st"><span class="num">1</span><div class="tx"><b>手元のテーマフォルダを編集する</b><span>VS Codeなどのエディタで、自分のPCにあるテーマフォルダを直接編集します。</span></div></div>
+  <div class="st"><span class="num">2</span><div class="tx"><b>フォルダをzipにする</b><span>エクスプローラーでテーマフォルダを右クリック →「ZIP ファイルに圧縮する」（表示されない場合は「送る」→「圧縮 (zip 形式) フォルダー」）。テーマフォルダ自体をzipにします（フォルダを開いて中身だけ選んで圧縮しない）。</span></div></div>
+  <div class="st"><span class="num">3</span><div class="tx"><b>管理画面からアップロードする</b><span>外観 → テーマ → 新規テーマを追加 → テーマのアップロード → zipを選択 → 今すぐインストール。2回目からは「アップロードしたもので現在のものを置き換える」と聞かれるので、置き換えます。</span></div></div>
+  <div class="st"><span class="num">4</span><div class="tx"><b>有効化して、サイトを表示する</b><span>初回のみ「有効化」を押します。あとはサイトを開いて、変更が反映されたか目で確認します。反映されていないように見えたらスーパーリロード（Ctrl+Shift+R）。</span></div></div>
+</div>
+<div class="todo">
+  <div class="tt">◎ 慣れてきた人向け：FTPで直接アップロードする方法</div>
+  <p>FileZillaなどのFTPソフトで <code>wp-content/themes/nagashima-dc/</code> に接続すると、変更したファイルだけを転送できて速くなります（FTP情報は教育担当から）。ただし転送先を1階層間違えると他のフォルダを上書きします。<b>まずはzipの基本ループで1周してから</b>にしてください。</p>
+</div>
+<div class="onepoint">
+  <span class="tag">この章の 1 point</span>
+  <h3>「テスト環境が消えても困らない形」で作業できていればOK</h3>
+  <p class="note">正本は手元のフォルダ、テスト環境は確認用。この分担さえ守れていれば、テスト環境に何が起きても被害ゼロです。テーマファイルエディターでの直接編集だけは、絶対にしないこと。</p>
+</div>
+
+<!-- ================= 3章 ================= -->
+<section class="chapter" id="ch3">
+  <div class="n">CHAPTER 03</div>
+  <h2 class="mincho">テーマを複製する</h2>
+  <p class="desc">template_theme を「今回の案件のテーマ」に仕立て直します。テーマのREADMEには複製チェックリストが14項目ありますが、今の時点で全部やる必要はありません。</p>
+</section>
+
+<div class="header"><span class="bar"></span><h3>まず、これだけやる</h3></div>
+<div class="steps">
+  <div class="st"><span class="num">1</span><div class="tx"><b>template_theme フォルダをコピーして、リネームする</b><span>今回は <code>nagashima-dc</code> という名前にします。以後、このフォルダがあなたの正本です。</span></div></div>
+  <div class="st"><span class="num">2</span><div class="tx"><b>style.css の先頭コメント（テーマヘッダー）を書き換える</b><span>フォルダ直下の style.css を開き、<code>Theme Name:</code> を「永嶌歯科クリニック」に、Description をひとこと案件の説明に変えます。WordPressはこのコメントを見てテーマを認識します。</span></div></div>
+  <div class="st"><span class="num">3</span><div class="tx"><b>zipにしてテスト環境へアップロード → 有効化</b><span>2章の基本ループ、1回目の実行です。外観 → テーマ の一覧に「永嶌歯科クリニック」が現れて有効化できたら、複製は成功です。</span></div></div>
+</div>
+
+<div class="header"><span class="bar"></span><h3>残りのチェックリストは「演習の中で」消化する</h3></div>
+<p>テーマのコードには <code>▼▼ 案件ごとに書き換え ▼▼</code> というコメントが計18箇所埋まっています。エディタの全体検索で「案件ごとに書き換え」を検索してみてください——書き換えるべき場所の一覧がそのまま出てきます。<em>暗記は不要で、検索すれば全部見つかる</em>ようにテーマが作られています。</p>
+<table class="matrix">
+  <thead><tr><th>READMEのチェックリスト</th><th>いつやるか</th></tr></thead>
+  <tbody>
+    <tr><th>1. フォルダ名／2. テーマヘッダー</th><td><b>今やりました</b>（上のSTEP）</td></tr>
+    <tr><th>3. PCナビ／4. SPドロワー／5. フッター／6. カラーパレット／7. ベースフォント／8. Webフォント／11. ロゴ／13. パーマリンク再保存／14. 残りチェック</th><td><b>6章の演習の中で</b>順番にやります。それぞれのSTEPで案内します</td></tr>
+    <tr><th>9. GA4/GTM／10. JSON-LDの医院情報／12. screenshot.png</th><td><b>今回はやりません</b>（本番反映とセットの作業なので、次の段階で）</td></tr>
+  </tbody>
+</table>
+
+<!-- ================= 4章 ================= -->
+<section class="chapter" id="ch4">
+  <div class="n">CHAPTER 04</div>
+  <h2 class="mincho">触っていいファイル・ダメなファイル</h2>
+  <p class="desc">怖がらせたいわけではなくて、逆です。「ここ以外は壊しようがない」と分かっていたほうが、思い切って書けます。</p>
+</section>
+
+<div class="vs">
+  <div>
+    <div class="head">触っていい（今回の作業場所）</div>
+    <ul>
+      <li><code>css/style.css</code><small>色の定義（:root）とトップページのスタイル。一番よく触る</small></li>
+      <li><code>css/basic.css</code><small>ベースフォント・見出しの共通スタイル</small></li>
+      <li><code>front-page.php</code><small>トップページのHTML骨格。「穴」以外の部分</small></li>
+      <li><code>parts/menu-header-pc.php</code> / <code>menu-header-sp.php</code><small>ヘッダー・ナビ・SPドロワーのHTML</small></li>
+      <li><code>footer.php</code><small>フッターのHTML</small></li>
+      <li><code>functions.php</code> の58行目付近<b>だけ</b><small>Webフォント読み込みのコメントを外す1箇所のみ</small></li>
+      <li><code>images/</code><small>ロゴや画像を置く場所</small></li>
+    </ul>
+  </div>
+  <div class="ng">
+    <div class="head">触らない（理由つき）</div>
+    <ul>
+      <li><code>css/reset.css</code><small>全ブラウザの表示を揃える土台。触ると原因不明のズレが起きる</small></li>
+      <li><code>functions.php</code> の58行目付近<b>以外</b><small>投稿タイプやサイトマップの機能定義。1文字のミスでサイト全体が真っ白になる</small></li>
+      <li><code>src/</code>・<code>build/</code><small>専用ブロックのプログラム。ビルドという別工程が必要</small></li>
+      <li><code>metabox/</code><small>GA4や構造化データの記入場所。本番反映時に先輩とやる</small></li>
+      <li><code>css/under.css</code>・<code>archive-news.css</code><small>下層・一覧ページ用。今回は出番なし（壊れはしないが触る必要がない）</small></li>
+    </ul>
+  </div>
+</div>
+<p class="sub">もし「ダメ」側を触って画面が真っ白になっても、手元の正本フォルダが無事なら元に戻せます。8章のつまずき集を見てください。</p>
+
+<!-- ================= 5章 ================= -->
+<section class="chapter" id="ch5">
+  <div class="n">CHAPTER 05</div>
+  <h2 class="mincho">カンプを読む</h2>
+  <p class="desc">コードを書き始める前に、カンプ2枚（PC・SP）を開いて眺めます。実案件でもカンプは「画像＋この章のようなスタイルガイド」のセットで渡されます。章の終わりに、実案件で必ず出てくる「足りない素材の作り方」も付けました。</p>
+</section>
+
+<div class="header"><span class="bar"></span><h3>カンプの見方</h3></div>
+<div class="rows">
+  <div class="row"><div class="t">PCとSPを並べて見る</div><div class="d">同じセクションがPCとSPでどう変形するか（3列→1列、横並び→縦積み）を先に把握しておくと、CSSの書き方（メディアクエリ）が決めやすくなります</div></div>
+  <div class="row"><div class="t">繰り返しの単位を探す</div><div class="d">「強みの6枚」「診療項目の9枚」「医院紹介の3行」はどれも同じ部品の繰り返しです。1個ぶんのHTMLとCSSを作れば、残りはコピーで済みます。約22ブロックありますが、部品の種類はずっと少ないです</div></div>
+  <div class="row"><div class="t">色数を数える</div><div class="d">このカンプは実質5色（濃茶・金茶・ベージュ・白・グレー系の文字色）しか使っていません。下のスタイルガイドの変数に全部対応しています</div></div>
+  <div class="row"><div class="t">背景のリズムを見る</div><div class="d">白 → 斜めパターンのベージュ → 濃茶、の3種類の帯が交互に来る構成です。どのセクションがどの背景か、先に鉛筆でメモしておくと迷子になりません</div></div>
+</div>
+
+<div class="header"><span class="bar"></span><h3>スタイルガイド（この表の値をそのまま使う）</h3></div>
+<p>色をスポイトで拾う必要はありません。実案件でもカラーコードはデザイナーから指定されます。今回の指定は次のとおりです。</p>
+<table class="matrix">
+  <thead><tr><th>CSS変数</th><th>値</th><th>使いどころ</th></tr></thead>
+  <tbody>
+    <tr><th><code>--c-primary</code></th><td><span class="swatch" style="background:#44200d"></span><code>#44200d</code></td><td>メインの濃茶。見出し・ヘッダーの電話ブロック・フッター背景</td></tr>
+    <tr><th><code>--c-accent</code></th><td><span class="swatch" style="background:#b28c55"></span><code>#b28c55</code></td><td>金茶。見出し脇の短い罫線・英字ラベル・日付</td></tr>
+    <tr><th><code>--c-cta</code></th><td><span class="swatch" style="background:#44200d"></span><code>#44200d</code></td><td>電話などのボタン地色（メインと同色）</td></tr>
+    <tr><th><code>--c-cta-hover</code></th><td><span class="swatch" style="background:#1f0e07"></span><code>#1f0e07</code></td><td>ボタンのホバー時。濃くする</td></tr>
+    <tr><th><code>--c-bg</code></th><td><span class="swatch" style="background:#ffffff"></span><code>#ffffff</code></td><td>ページ背景の白</td></tr>
+    <tr><th><code>--c-surface</code></th><td><span class="swatch" style="background:#eee2db"></span><code>#eee2db</code></td><td>ベージュの色面。FV・お知らせ帯・アクセス帯の背景</td></tr>
+    <tr><th><code>--c-border</code></th><td><span class="swatch" style="background:#e2dfdd"></span><code>#e2dfdd</code></td><td>1pxの罫線ぜんぶ</td></tr>
+    <tr><th><code>--c-text</code></th><td><span class="swatch" style="background:#333333"></span><code>#333333</code></td><td>本文の文字色</td></tr>
+    <tr><th><code>--c-text-muted</code></th><td><span class="swatch" style="background:#7f7f7e"></span><code>#7f7f7e</code></td><td>補足・注釈の文字色</td></tr>
+    <tr><th><code>--c-primary-d</code>（追加）</th><td><span class="swatch" style="background:#3a2619"></span><code>#3a2619</code></td><td>濃茶の面。「強み」「フッター」などの帯背景。テーマの9変数に<b>2行追記</b>する</td></tr>
+    <tr><th><code>--c-accent-d</code>（追加）</th><td><span class="swatch" style="background:#8b652f"></span><code>#8b652f</code></td><td>金茶の濃色。アイコンの線・番号など</td></tr>
+  </tbody>
+</table>
+<table class="matrix">
+  <thead><tr><th>項目</th><th>指定</th></tr></thead>
+  <tbody>
+    <tr><th>見出しフォント（和文）</th><td><b>Shippori Mincho</b>（Google Fonts）。h2・h3と医院名に使う</td></tr>
+    <tr><th>英字フォント</th><td><b>Cardo</b>（Google Fonts）。セクションの英字ラベル・電話番号・日付に使う</td></tr>
+    <tr><th>本文フォント</th><td>游ゴシック体のスタック（Webフォント不要）：<code>"游ゴシック体", "Yu Gothic", YuGothic, "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, sans-serif</code>／15px・行間2・字間0.05em</td></tr>
+    <tr><th>Google Fonts のURL</th><td><code>https://fonts.googleapis.com/css2?family=Cardo:ital@0;1&amp;family=Shippori+Mincho:wght@500;600&amp;display=swap</code>（STEP2で使います）</td></tr>
+    <tr><th>コンテンツ幅</th><td>最大1200px。テーマに <code>.mw1200</code> という既製クラスがあるので、セクションの内側に付けるだけでOK</td></tr>
+    <tr><th>ブレークポイント</th><td><b>768px</b>（テーマ共通）。SP用のスタイルは <code>@media screen and (max-width: 768px)</code> にまとめる</td></tr>
+    <tr><th>斜めパターン背景</th><td>ベージュ地 <code>#f2ece5</code> に、45度と135度の <code>linear-gradient</code> を2枚重ねて大きな斜めの色面を作る（画像は使わない）。作り方が分からなければ講師に聞いてOK。ここは詰まりやすいポイントです</td></tr>
+  </tbody>
+</table>
+
+<div class="header"><span class="bar"></span><h3>参考サイトのCSSの覗き方（実案件で必ず使う技）</h3></div>
+<p>実案件では「このサイトみたいな雰囲気で」と参考サイトを渡されることがよくあります。そのとき、見た目から作り方を推測する必要はありません。ブラウザの開発者ツールで<em>答えを直接見る</em>ことができます。今回の演習でも「カンプのこの部分、どう作るんだろう」と思ったら、似た作りのサイトで同じことをして構いません。</p>
+<div class="steps">
+  <div class="st"><span class="num">1</span><div class="tx"><b>調べたい場所を右クリック →「検証」</b><span>開発者ツール（DevTools）が開き、その要素のHTMLが選択された状態になります。左上の矢印アイコン（要素選択モード）をクリックしてからページ上を選び直すこともできます。</span><img src="material/guide-img/devtools-open.png" alt="右クリックメニューの一番下にある「検証」を選ぶ"></div></div>
+  <div class="st"><span class="num">2</span><div class="tx"><b>「Styles」タブで、当たっているCSSを読む</b><span>選択中の要素に効いているCSSが上から優先順に並びます。<b>取り消し線が付いた行は、他のCSSに上書きされて効いていない行</b>です（下の図では、より強い <code>.btn.line</code> の background に負けた行に取り消し線が付いています）。右端の「style.css:198」は書いてある場所です。</span><img src="material/guide-img/devtools-styles.png" alt="Stylesタブ。取り消し線付きの行は上書きされて効いていない"></div></div>
+  <div class="st"><span class="num">3</span><div class="tx"><b>実際の値は「Computed」タブで確認する</b><span>Stylesは「書いてあるCSS」、Computedは「最終的に適用された値」です。フォントの確定値は Computed の font-family、さらに下の「Rendered Fonts」を見ると、実際にどのフォントで描画されたかまで分かります（Webフォントが読めているかの確認にも使えます）。</span><img src="material/guide-img/devtools-computed.png" alt="Computedタブ。最下部のRendered Fontsで実際の描画フォントが分かる"></div></div>
+  <div class="st"><span class="num">4</span><div class="tx"><b>色はスウォッチから拾う</b><span>Stylesの色付き四角（スウォッチ）をクリックするとカラーピッカーが開き、カラーコードをコピーできます。左下のスポイトアイコンを押すと、画面上の好きな場所の色を拾えます。</span><img src="material/guide-img/devtools-color.png" alt="スウォッチをクリックするとカラーピッカーが開く。左下がスポイト"></div></div>
+  <div class="st"><span class="num">5</span><div class="tx"><b>余白はハイライトの色で見る</b><span>要素を選択すると、ページ上に margin がオレンジ、padding が緑で表示されます（下の図の左）。数値は Computed 上部のボックスモデル図（右）に出ています。「この余白、何pxだろう」はこれで一発です。</span><img src="material/guide-img/devtools-boxmodel.png" alt="左：ページ上のオレンジ＝margin・緑＝padding。右：ボックスモデル図"></div></div>
+  <div class="st"><span class="num">6</span><div class="tx"><b>その場で書き換えて実験する</b><span>Stylesの値はクリックするとその場で編集できます（↑↓キーで1pxずつ増減。リロードすれば元どおり）。「この影を消したらどう見えるか」「このpaddingを増やしたら」を、コードを書く前に試せます。<b>自分のテスト環境の調整にも同じ技が使えます</b>——DevToolsで数値を調整して正解を見つけてから、style.cssに書き写すと速いです。</span><img src="material/guide-img/devtools-edit.png" alt="値をクリックして直接書き換えている状態。リロードで元に戻る"></div></div>
+</div>
+<div class="rule">
+  <div class="rt"><span class="n">禁止</span>「見て学ぶ」のはOK。「コピーする」のはNG</div>
+  <p>参考サイトから読み取っていいのは、<b>値と仕組み</b>（色・余白・フォント指定・レイアウトの作り方）までです。CSSやHTMLを丸ごとコピーして流用しない。写真・イラスト・アイコン・背景画像は<b>1枚たりとも流用しない</b>（著作物です）。文章もコピーしない。このラインは実案件では会社の信用に直結します。迷ったら講師に聞いてください。</p>
+</div>
+<div class="says"><div class="bubble">カンプと1pxまで同じにならなくても大丈夫。見るのは<b>色・フォント・余白のリズム</b>が合ってるかどうか。そこが合ってれば「再現できてる」って言っていいよ。</div><svg class="mascot" viewBox="0 0 100 118" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path class="ln" d="M28 118 v-14 a22 22 0 0 1 44 0 v14 z"/>
+  <path class="st" d="M42 96 l8 8 l8 -8" stroke-width="2.5"/>
+  <circle class="ln" cx="50" cy="56" r="30"/>
+  <path class="st" d="M50 27 q3 -11 11 -13 q-5 7 -3 13"/>
+  <path class="acst" d="M20 56 a30 30 0 0 1 60 0"/>
+  <rect class="ac" x="13" y="48" width="12" height="18" rx="4"/>
+  <rect class="ac" x="75" y="48" width="12" height="18" rx="4"/>
+  <path class="acst" d="M19 66 q-2 13 15 9" stroke-width="3"/>
+  <circle class="ac" cx="34" cy="75" r="3.2"/>
+  <ellipse class="cheek" cx="33" cy="65" rx="5.5" ry="3.6"/>
+  <ellipse class="cheek" cx="67" cy="65" rx="5.5" ry="3.6"/>
+  <circle class="eye" cx="40" cy="54" r="3.6"/>
+  <circle class="eye" cx="60" cy="54" r="3.6"/>
+  <path class="st" d="M45 67 q5 6 10 0" stroke-width="2.6"/>
+</svg></div>
+
+<div class="header"><span class="bar"></span><h3>背景画像とバナーは、ChatGPTでつくる</h3></div>
+<p>この研修では背景はCSSだけで作り（カンプの斜めベージュは <code>linear-gradient</code> を2枚重ねただけです）、写真は配布素材を使います。ただし実案件では「この帯にちょっと質感がほしい」「バナーの下地が足りない」が必ず出ます。そこで素材サイトを延々と探すより、<em>ChatGPTの画像生成で作ってしまうほうが速い</em>——これが今の会社の推奨です。ただし万能ではないので、使い分けを先に決めます。</p>
+
+<div class="vs">
+  <div>
+    <span class="head">生成でつくるもの</span>
+    <ul>
+      <li>背景のパターン・テクスチャ<small>斜めストライプ、紙や布の質感、細かいノイズ</small></li>
+      <li>バナーの下地<small>文字を載せる前の、抽象的な情景や色面</small></li>
+      <li>一本線のアイコン・あしらい<small>既製のピクトアイコンを拾ってくるより揃う</small></li>
+      <li>仮あての風景・イメージ写真<small>本番写真が届くまでのつなぎ。差し替え前提で</small></li>
+    </ul>
+  </div>
+  <div class="ng">
+    <span class="head">生成で作らないもの</span>
+    <ul>
+      <li>症例写真・ビフォーアフター<small>医療広告ガイドライン。実在しない治療結果を出すのは論外です</small></li>
+      <li>院内・スタッフ・院長の写真<small>実在しない院内を載せると景表法の問題になります。実写のみ</small></li>
+      <li>ロゴ<small>ベクターで作るもの。生成画像は輪郭が甘く、拡大に耐えません</small></li>
+      <li>文字が入った画像<small>日本語はまず崩れます。文字はHTML/CSSで載せる</small></li>
+    </ul>
+  </div>
+</div>
+
+<div class="steps">
+  <div class="st"><span class="num">1</span><div class="tx"><b>先にCSSで作れないか考える</b><span>ストライプ・ドット・単純なグラデーションは <code>linear-gradient</code> / <code>repeating-linear-gradient</code> で作れます。CSSで足りるならそのほうが軽く、色も後から1行で変えられます。画像に頼るのは「質感」が要るときだけ。</span></div></div>
+  <div class="st"><span class="num">2</span><div class="tx"><b>用途とサイズを決めてから頼む</b><span>「タイルで繰り返す」のか「1枚で敷く」のかで作り方が変わります。タイルなら正方形（1024×1024など）、1枚敷きならセクションの実寸に近い横長で。</span></div></div>
+  <div class="st"><span class="num">3</span><div class="tx"><b>下の依頼文をコピーして、数値と色だけ書き換える</b><span>色はカンプのスタイルガイドのコードをそのまま入れます。1回で決まらないのが普通なので、直すときは<b>一度に1箇所だけ</b>（「ストライプの間隔を2倍に」「四隅の暗さを消して」）。まとめて言うと別物が返ってきます。</span></div></div>
+  <div class="st"><span class="num">4</span><div class="tx"><b>継ぎ目と粗さを確認する</b><span>タイルは実際にCSSで <code>repeat</code> して継ぎ目を見る。生成画像は完全なシームレスになりにくく、ここで諦めてCSSに戻る判断もよくあります。</span></div></div>
+  <div class="st"><span class="num">5</span><div class="tx"><b>圧縮してから入れる</b><span>生成直後のPNGは数MBあります。<a href="https://squoosh.app/">Squoosh</a> でWebPかJPGに変換し、背景は1枚<b>200KB以下</b>を目安に。ここを飛ばすと、せっかく作った背景がサイトを重くする原因になります。</span></div></div>
+</div>
+
+<div class="prompt">
+  <span class="pl">依頼文の例｜タイルで繰り返す斜めストライプ背景</span>
+  <p>Webサイトの背景に敷く画像を作ってください。</p>
+  <span class="li">サイズは1024×1024の正方形。上下左右がつながって、タイル状に繰り返せること</span>
+  <span class="li">柄は45度の斜めストライプ。太さは均一、境目はくっきり</span>
+  <span class="li">地の色は #F2ECE5、ストライプは白を半分の濃さで重ねた程度の、ごく弱いコントラスト</span>
+  <span class="li">フラットな塗りで。写真的な質感、立体感、影、グラデーションは入れない</span>
+  <span class="li">文字・ロゴ・イラストは一切入れない</span>
+</div>
+
+<div class="prompt">
+  <span class="pl">依頼文の例｜セクションに敷く紙の質感</span>
+  <p>Webサイトのセクション背景に敷く、紙の質感の画像を作ってください。</p>
+  <span class="li">サイズは横1600×縦1000</span>
+  <span class="li">和紙のような細かい繊維の質感。遠目には無地に見える程度の弱さで</span>
+  <span class="li">色は全体に #F7F3EC 前後の生成り。色ムラは弱く</span>
+  <span class="li">四隅を暗くするビネットは付けない。中央と端の明るさを揃える</span>
+  <span class="li">柄・模様・文字は入れない</span>
+</div>
+
+<div class="prompt">
+  <span class="pl">依頼文の例｜バナー4連の下地（文字は後からCSSで載せる）</span>
+  <p>歯科医院のWebサイトで使うバナーの背景画像を作ってください。</p>
+  <span class="li">サイズは横800×縦500</span>
+  <span class="li">明るく落ち着いた診療室の情景。人物・顔・手は写さない</span>
+  <span class="li">色はベージュと白木の暖色でまとめ、彩度は低め</span>
+  <span class="li">左半分に文字を載せるので、大きな被写体を左に置かず、明るい余白にする</span>
+  <span class="li">画像の中に文字・ロゴ・アイコンは入れない</span>
+  <span class="li">広角レンズの歪み、強い影、極端なボケは避ける</span>
+</div>
+
+<div class="prompt">
+  <span class="pl">依頼文の例｜一本線のアイコン</span>
+  <p>Webサイトで使うアイコンを作ってください。</p>
+  <span class="li">モチーフは「歯ブラシ」。1枚に1つだけ</span>
+  <span class="li">一本線のシンプルな線画。線の太さは均一、角は少し丸める</span>
+  <span class="li">塗りつぶしなし。色は黒1色、背景は透明</span>
+  <span class="li">512×512の正方形。上下左右に均等な余白を取る</span>
+  <span class="li">影・グラデーション・立体感は付けない</span>
+</div>
+
+<div class="rule">
+  <div class="rt"><span class="n">注意</span>生成画像は「そのまま使わない」</div>
+  <p>①<b>文字は画像に焼き込まない</b>——日本語は崩れますし、あとで文言修正が来たときに作り直しになります。②<b>必ず圧縮する</b>。③<b>同じ案件の画像は同じ会話で続けて作る</b>（トーンが揃います。別会話で作ると微妙に色味がズレます）。④出てきた画像が<b>実在の医院・実在の人物の写真に見える</b>なら使わない。この4つを守れば事故は起きません。</p>
+</div>
+
+<div class="says"><div class="bubble">「それっぽい画像」はすぐ出るけど、<b>継ぎ目とファイルサイズで結局やり直す</b>のが一番多いパターン。先にCSSで作れないか考えるクセを付けとくと、ここで時間を溶かさずに済むよ。</div><svg class="mascot" viewBox="0 0 100 118" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path class="ln" d="M28 118 v-14 a22 22 0 0 1 44 0 v14 z"/>
+  <path class="st" d="M42 96 l8 8 l8 -8" stroke-width="2.5"/>
+  <circle class="ln" cx="50" cy="56" r="30"/>
+  <path class="st" d="M50 27 q3 -11 11 -13 q-5 7 -3 13"/>
+  <path class="acst" d="M20 56 a30 30 0 0 1 60 0"/>
+  <rect class="ac" x="13" y="48" width="12" height="18" rx="4"/>
+  <rect class="ac" x="75" y="48" width="12" height="18" rx="4"/>
+  <path class="acst" d="M19 66 q-2 13 15 9" stroke-width="3"/>
+  <circle class="ac" cx="34" cy="75" r="3.2"/>
+  <ellipse class="cheek" cx="33" cy="65" rx="5.5" ry="3.6"/>
+  <ellipse class="cheek" cx="67" cy="65" rx="5.5" ry="3.6"/>
+  <circle class="eye" cx="40" cy="54" r="3.6"/>
+  <circle class="eye" cx="60" cy="54" r="3.6"/>
+  <path class="st" d="M45 67 q5 6 10 0" stroke-width="2.6"/>
+</svg></div>
+
+<!-- ================= 6章 ================= -->
+<section class="chapter" id="ch6">
+  <div class="n">CHAPTER 06</div>
+  <h2 class="mincho">演習：カンプを再現する</h2>
+  <p class="desc">ここが本体です。STEP 0〜9 を順番に。各STEPの終わりに「✔ できたかの確認」があるので、確認してから次へ進んでください。どのSTEPも、終わったら2章の基本ループ（zip → アップロード → 表示）で反映します。1ブロック作るごとに反映して眺める——このリズムを崩さないのが完走のコツです。</p>
+</section>
+
+<div class="ex" id="step0">
+  <div class="ex-head"><span class="stepno">STEP 0</span><b>複製と有効化</b><span class="time">済んでいるはず</span></div>
+  <div class="ex-body">
+    <p>3章でやった内容そのものです。まだの人はここで済ませてください。</p>
+    <div class="check"><span class="ck">✔ 確認</span>外観 → テーマ に「永嶌歯科クリニック」が表示され、有効化できている。サイトを表示すると、グレー一色の骨格ページが出る。</div>
+  </div>
+</div>
+
+<div class="ex" id="step1">
+  <div class="ex-head"><span class="stepno">STEP 1</span><b>カラーパレットを転記する</b><span class="time">目安 30分</span></div>
+  <div class="ex-body">
+    <p class="file">編集： <code>css/style.css</code> の <code>:root</code></p>
+    <p>style.css の先頭にある <code>:root</code> の9変数（いまは全部グレー）に、5章のスタイルガイドの値を転記します。作業はこれだけですが、<em>テーマ中の色が一度に切り替わる</em>のを見てください。色を必ず変数で持つのは、あとから「もう少し明るく」と言われたときに1箇所直せば全部変わるようにするためです。</p>
+    <div class="check"><span class="ck">✔ 確認</span>サイト全体がグレーから茶系に変わる。開発者ツール（F12）で <code>&lt;html&gt;</code> を選び、Computed に <code>--c-primary: #44200d</code> が出ていればなお確実。</div>
+  </div>
+</div>
+
+<div class="ex" id="step2">
+  <div class="ex-head"><span class="stepno">STEP 2</span><b>フォントを設定する</b><span class="time">目安 1時間</span></div>
+  <div class="ex-body">
+    <p class="file">編集： <code>functions.php</code> の58行目付近 ＋ <code>css/basic.css</code></p>
+    <div class="steps">
+      <div class="st"><span class="num">1</span><div class="tx"><b>Webフォントの読み込みを有効化する</b><span>functions.php の「▼▼ 案件ごとに書き換え：Webフォント ▼▼」に、コメントアウトされた <code>wp_enqueue_style(...)</code> の例があります。コメントを外し、URLを5章のGoogle FontsのURLに差し替えます。functions.php を触るのは、この研修ではここだけです。</span></div></div>
+      <div class="st"><span class="num">2</span><div class="tx"><b>basic.css のフォント指定を書き換える</b><span>「▼▼ 案件ごとに書き換え：ベースフォント・見出し ▼▼」の区間で、body を游ゴシックのスタックに、h2・h3 に Shippori Mincho を指定します。値は5章の表のとおりです。</span></div></div>
+    </div>
+    <div class="check"><span class="ck">✔ 確認</span>見出し「お知らせ」が明朝体に変わる。開発者ツールで見出しを選び、Computed の font-family に Shippori Mincho が出ていること（出ていなければ functions.php のコメント解除を見直す）。</div>
+  </div>
+</div>
+
+<div class="ex" id="step3">
+  <div class="ex-head"><span class="stepno">STEP 3</span><b>ヘッダーと「無料相談」タブ</b><span class="time">目安 半日</span></div>
+  <div class="ex-body">
+    <p class="file">編集： <code>images/</code> ＋ <code>parts/menu-header-pc.php</code> ＋ <code>css/style.css</code></p>
+    <div class="steps">
+      <div class="st"><span class="num">1</span><div class="tx"><b>ロゴを置く</b><span>配布の <code>material/logo.svg</code> をテーマの <code>images/logo.svg</code> にコピーします。写真素材（material/photos/ の23枚）も、このタイミングで <code>images/photos/</code> にまとめてコピーしておくと以後が楽です。</span></div></div>
+      <div class="st"><span class="num">2</span><div class="tx"><b>menu-header-pc.php をカンプのヘッダーに作り替える</b><span>カンプのヘッダーは、左：ロゴ＋医院名、右：診療時間（OPEN/CLOSE）＋濃茶の電話ブロック、という構成で<b>横並びのナビがありません</b>（本家参考サイトと同じ作りです）。ダミーのナビ項目は削除し、ヘッダー全体のHTMLをこのファイルに書きます。リンク先は <code>#</code> で構いません。</span></div></div>
+      <div class="st"><span class="num">3</span><div class="tx"><b>右端固定の「無料相談はこちら」タブを作る</b><span>画面右端の縦書きタブは <code>position: fixed</code> ＋ <code>writing-mode: vertical-rl</code> で作ります。HTMLはヘッダーと同じファイルに置いてOKです。</span></div></div>
+      <div class="st"><span class="num">4</span><div class="tx"><b>スタイルを css/style.css に書く</b><span>「ここからトップページのスタイルを実装」というコメントの下に書き始めます。電話ブロックは <code>var(--c-cta)</code> のベタ塗り、ホバーで <code>var(--c-cta-hover)</code> に濃くします。</span></div></div>
+    </div>
+    <div class="check"><span class="ck">✔ 確認</span>ブラウザ幅を1440pxにして、カンプPC版の上端と並べて見比べる。ロゴ・診療時間・電話ブロックの並びと色が合っている。スクロールしても右端のタブが付いてくる。</div>
+  </div>
+</div>
+
+<div class="ex" id="step4">
+  <div class="ex-head"><span class="stepno">STEP 4</span><b>FV・News帯・バナー4連</b><span class="time">目安 1日</span></div>
+  <div class="ex-body">
+    <p class="file">編集： <code>front-page.php</code> の <code>&lt;section class="fv"&gt;</code> ＋ <code>css/style.css</code></p>
+    <div class="steps">
+      <div class="st"><span class="num">1</span><div class="tx"><b>FV（全幅写真＋コピー）</b><span>空っぽの <code>&lt;section class="fv"&gt;</code> の内側に書きます。写真は <code>photos/fv.jpg</code> を <code>object-fit: cover</code> で全幅に。左に暗くなるグラデーションを1枚重ねると、白い文字が読めるようになります。英文コピーはCardo・下に金茶のアンダーライン、和文コピーは両側に短い金茶罫（::before / ::after）。右下のスライダー用ドット4つは飾りでOK（動かすのは範囲外）。</span></div></div>
+      <div class="st"><span class="num">2</span><div class="tx"><b>News帯</b><span>FVの下端に重なる半透明の濃茶帯です。<code>position: absolute; bottom: 0</code> でFVに重ねます。中身のお知らせ1件ぶんは、今回は静的なHTMLで構いません。</span></div></div>
+      <div class="st"><span class="num">3</span><div class="tx"><b>バナー4連</b><span>FV直下に4枚横並び（写真＋英字ラベル＋テキスト、1px罫線囲み）。3枚目だけ濃茶の反転配色です。</span></div></div>
+    </div>
+    <div class="check"><span class="ck">✔ 確認</span>FVの高さ・コピーの位置・書体・News帯の重なり・バナーの並びがカンプと合っている。特に「英文が明朝系（Cardo）になっているか」「写真に文字が埋もれていないか」を見る。</div>
+  </div>
+</div>
+
+<div class="ex" id="step5">
+  <div class="ex-head"><span class="stepno">STEP 5</span><b>前半セクション（理念〜強み〜ネットワーク）</b><span class="time">目安 3日</span></div>
+  <div class="ex-body">
+    <p class="file">編集： <code>front-page.php</code> ＋ <code>css/style.css</code></p>
+    <p>ここからは「1ブロック作る → 反映して眺める」の繰り返しです。カンプの上から順に。</p>
+    <div class="steps">
+      <div class="st"><span class="num">a</span><div class="tx"><b>理念（斜めパターン背景）</b><span>中央寄せの明朝見出し＋本文。背景の斜めパターンは5章のスタイルガイド参照。このパターンは後のセクションでも使い回すので、<code>.diag</code> のような共通クラスにしておきます。</span></div></div>
+      <div class="st"><span class="num">b</span><div class="tx"><b>Promotion（動画枠）</b><span>「英字＋金茶ダッシュ＋和文」のセクション見出しをここで共通クラス化（この先ずっと使います）。動画は埋め込まず、写真＋再生ボタン風の円で「動画のように見える枠」を作ればOKです。背景に写真を敷いて暗くします。</span></div></div>
+      <div class="st"><span class="num">c</span><div class="tx"><b>Instagram（正方形4枚）</b><span>正方形は <code>aspect-ratio: 1/1</code> ＋ <code>object-fit: cover</code>。ホバーで写真がゆっくり拡大します（transform: scale）。</span></div></div>
+      <div class="st"><span class="num">d</span><div class="tx"><b>強み6枚（濃茶の帯）</b><span>背景は追加変数 <code>--c-primary-d</code>。カードは写真＋金茶の番号（Cardo）＋白見出し＋薄茶の本文。3列×2段のgridです。番号の右に伸びる短い金茶罫は ::after で。</span></div></div>
+      <div class="st"><span class="num">e</span><div class="tx"><b>専門医ネットワーク</b><span>白背景に中央寄せの導入 → 横長のチーム写真 → 写真に<b>重なる</b>濃茶パネル（negative margin で持ち上げます）→ アイコン4枚のカード。アイコンは一本線のSVGを自作するか、講師に相談してください。</span></div></div>
+    </div>
+    <div class="check"><span class="ck">✔ 確認</span>ブロックごとにカンプと突き合わせ。背景のリズム（白→ベージュ斜め→白→濃茶→白）が合っているかを最初に見る。濃茶帯の文字が全部白系になっているか。</div>
+  </div>
+</div>
+
+<div class="ex" id="step6">
+  <div class="ex-head"><span class="stepno">STEP 6</span><b>中盤セクション（院長〜生涯コスト）</b><span class="time">目安 3日</span></div>
+  <div class="ex-body">
+    <p class="file">編集： <code>front-page.php</code> ＋ <code>css/style.css</code></p>
+    <div class="steps">
+      <div class="st"><span class="num">a</span><div class="tx"><b>院長紹介（斜めパターン背景）</b><span>白いカード（写真＋役職＋在籍資格の箇条書き）を中央に。名前は載せません（カンプどおり）。</span></div></div>
+      <div class="st"><span class="num">b</span><div class="tx"><b>電話CTA</b><span>2枚の枠（お電話でのご予約／無料相談）。電話番号はCardoで大きく。<b>番号と受付時間はカンプの文言をそのまま転記</b>——ここの写し間違いが一番の事故です。</span></div></div>
+      <div class="st"><span class="num">c</span><div class="tx"><b>建物ワイド写真</b><span>全幅写真に明朝の白コピーを重ねます。FVで作った「暗くするグラデーション」の応用です。</span></div></div>
+      <div class="st"><span class="num">d</span><div class="tx"><b>自費診療 3＋1</b><span>番号付きカード3枚＋横長カード1枚（テキスト＋写真の2カラム）。</span></div></div>
+      <div class="st"><span class="num">e</span><div class="tx"><b>チームと設備（互い違い3行）</b><span>写真とテキストが左右交互に並びます。<code>flex-direction: row-reverse</code> を偶数行だけに当てるのがコツ。</span></div></div>
+      <div class="st"><span class="num">f</span><div class="tx"><b>生涯コスト（斜めパターン背景）</b><span>濃茶のリボン見出し＋グラフ＋丸アイコン4つ＋締めコピー＋ボタン。グラフは画像でもSVGでもOK（カンプの線が再現できていれば手段は問いません）。</span></div></div>
+    </div>
+    <div class="check"><span class="ck">✔ 確認</span>電話番号・受付時間をカンプと1文字ずつ照合。互い違いレイアウトがSPでどうなるべきかも、カンプSP版でここで一度見ておく。</div>
+  </div>
+</div>
+
+<div class="ex" id="step7">
+  <div class="ex-head"><span class="stepno">STEP 7</span><b>後半セクション（医院紹介〜Access）</b><span class="time">目安 3日</span></div>
+  <div class="ex-body">
+    <p class="file">編集： <code>front-page.php</code> ＋ <code>css/style.css</code></p>
+    <div class="steps">
+      <div class="st"><span class="num">a</span><div class="tx"><b>医院紹介（互い違い3行）</b><span>STEP 6-e と同じ型。写真が大きめ・テキストに枠線ボタンが付きます。</span></div></div>
+      <div class="st"><span class="num">b</span><div class="tx"><b>診療項目一覧＋症例メニュー（斜めパターン背景）</b><span>白いアイコンカード9枚（3列grid）＋写真カード3枚。アイコンは一本線SVG。9枚は同じ部品の繰り返しなので、1枚できれば残りはコピーです。</span></div></div>
+      <div class="st"><span class="num">c</span><div class="tx"><b>Images＋Recruit</b><span>写真2枚の下に、大きな筆記体風の「Images」（Cardo italic・半透明の金茶）を重ねます。はみ出し配置は position: absolute で。</span></div></div>
+      <div class="st"><span class="num">d</span><div class="tx"><b>Topics（お知らせ・テーマの骨格を使う）</b><span>ここで既存の <code>&lt;section class="front-news"&gt;</code> を移動・改造して使います。<b>&lt;?php ?&gt; の穴と li の構造は触らない</b>こと。カード型に見せるのはCSSの仕事です。お知らせが1件も無いと確認できないので、管理画面から練習記事を3件入れてください（タイトルはカンプ参照）。カードのサムネイル写真は、今回は全記事共通の固定画像で構いません。</span></div></div>
+      <div class="st"><span class="num">e</span><div class="tx"><b>Case＋衛生管理</b><span>ベージュ帯に症例カード3枚＋注記。白い枠の衛生管理ボックスを続けます。</span></div></div>
+      <div class="st"><span class="num">f</span><div class="tx"><b>Group＋Access</b><span>グループ医院カード4枚（ダミー文言のまま）。Accessは地図の色面に、右側から濃茶のパネルを重ねます（position: absolute）。住所・駅・電話は転記ミス注意。</span></div></div>
+    </div>
+    <div class="check"><span class="ck">✔ 確認</span>ブロックごとにカンプと突き合わせ。Topicsで「WPの管理画面から入れた記事が表示されているか」を必ず確認（静的に書いてしまっていたらやり直し）。</div>
+  </div>
+</div>
+
+<div class="ex" id="step8">
+  <div class="ex-head"><span class="stepno">STEP 8</span><b>フッター（カレンダー含む）</b><span class="time">目安 半日</span></div>
+  <div class="ex-body">
+    <p class="file">編集： <code>footer.php</code> ＋ <code>css/style.css</code></p>
+    <p>いまは copyright の1行だけが入っています。<code>&lt;footer class="site-footer"&gt;</code> の中身を、カンプのフッター（濃茶背景に医院情報・サイトマップ・診療時間表・カレンダー）に作り替えます。カレンダーは <code>&lt;table&gt;</code> の静的なHTMLでOK。<code>&lt;?php wp_footer(); ?&gt;</code> より下は触らないでください。</p>
+    <div class="check"><span class="ck">✔ 確認</span>最下部までスクロールして、3カラムの構成・カレンダーの休診日のグレー・copyright がカンプと合っている。</div>
+  </div>
+</div>
+
+<div class="ex" id="step9">
+  <div class="ex-head"><span class="stepno">STEP 9</span><b>SP対応（スマホ表示）</b><span class="time">目安 2〜3日</span></div>
+  <div class="ex-body">
+    <p class="file">編集： <code>css/style.css</code> のメディアクエリ ＋ <code>parts/menu-header-sp.php</code> ＋ <code>footer.php</code></p>
+    <div class="steps">
+      <div class="st"><span class="num">1</span><div class="tx"><b>横並びを縦に落とす</b><span>style.css の末尾に <code>@media screen and (max-width: 768px){ ... }</code> を1つ作り、SP用の上書きをまとめて書きます。基本は「3〜4列 → 1〜2列」「互い違い → 縦積み」「重なり → 通常配置」。カンプSP版を上からなぞって、セクションごとに直していきます。</span></div></div>
+      <div class="st"><span class="num">2</span><div class="tx"><b>SPドロワーの中身を書き換える</b><span>menu-header-sp.php のロゴ・メニュー項目・住所・電話をこの案件の内容にします。<b><code>#drawer-checkbox</code> というIDだけは絶対に変えない</b>でください（開閉のJSとペアになっています）。</span></div></div>
+      <div class="st"><span class="num">3</span><div class="tx"><b>下部固定の電話バーを付ける</b><span>footer.php の <code>&lt;/footer&gt;</code> の直後に電話バーのHTMLを追記し、CSSで <code>position: fixed; bottom: 0</code>・PCでは非表示にします。右端の「無料相談」タブはSPでは非表示です。</span></div></div>
+    </div>
+    <div class="check"><span class="ck">✔ 確認</span>開発者ツールのデバイスモードで幅375pxにして、カンプSP版と上から全ブロック突き合わせ。①ハンバーガーが出る ②タップでドロワーが開閉する ③下部に電話バーが固定される ④横スクロールが発生していない、の4点は必須。</div>
+  </div>
+</div>
+
+<div class="says"><div class="bubble">STEP 5〜7 は物量で一回は心が折れそうになるけど、それが普通。部品の種類は少ないから、<b>3日目くらいから急に速くなる</b>よ。まとめて書いてまとめて壊れるのが一番しんどいやつ。1ブロックずつね。</div><svg class="mascot" viewBox="0 0 100 118" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path class="ln" d="M28 118 v-14 a22 22 0 0 1 44 0 v14 z"/>
+  <path class="st" d="M42 96 l8 8 l8 -8" stroke-width="2.5"/>
+  <circle class="ln" cx="50" cy="56" r="30"/>
+  <path class="st" d="M50 27 q3 -11 11 -13 q-5 7 -3 13"/>
+  <path class="acst" d="M20 56 a30 30 0 0 1 60 0"/>
+  <rect class="ac" x="13" y="48" width="12" height="18" rx="4"/>
+  <rect class="ac" x="75" y="48" width="12" height="18" rx="4"/>
+  <path class="acst" d="M19 66 q-2 13 15 9" stroke-width="3"/>
+  <circle class="ac" cx="34" cy="75" r="3.2"/>
+  <ellipse class="cheek" cx="33" cy="65" rx="5.5" ry="3.6"/>
+  <ellipse class="cheek" cx="67" cy="65" rx="5.5" ry="3.6"/>
+  <circle class="eye" cx="40" cy="54" r="3.6"/>
+  <circle class="eye" cx="60" cy="54" r="3.6"/>
+  <path class="st" d="M45 67 q5 6 10 0" stroke-width="2.6"/>
+</svg></div>
+
+<!-- ================= 7章 ================= -->
+<section class="chapter" id="ch7">
+  <div class="n">CHAPTER 07</div>
+  <h2 class="mincho">最終チェックと提出</h2>
+  <p class="desc">「できたつもり」と「できた」の間を埋める章です。ここのチェックはそのまま、実案件で納品前にやることと同じです。</p>
+</section>
+
+<div class="header"><span class="bar"></span><h3>チェックリスト</h3></div>
+<div class="rows" id="finalcheck">
+  <div class="row"><div class="t">書き換え残しゼロ</div><div class="d">エディタで「案件ごとに書き換え」を全体検索。残っていてよいのは今回やらないと決めた3箇所（GA4／JSON-LD／screenshot.png）だけ。ナビやフッターにダミーの「○○県○○市」が残っていたらアウトです</div></div>
+  <div class="row"><div class="t">PC表示の突き合わせ</div><div class="d">幅1440pxで comp-pc.jpg と上から順に見比べる。ヘッダー／FV・News帯・バナー／理念／Promotion／Instagram／強み6／ネットワーク／院長／CTA／建物／自費診療／チームと設備／生涯コスト／医院紹介／診療項目・症例メニュー／Images・Recruit／Topics／Case・衛生管理／Group／Access／フッター——全ブロック。とくに「背景の帯（白・斜めベージュ・濃茶）の順番」が1箇所でもズレていないか</div></div>
+  <div class="row"><div class="t">SP表示の突き合わせ</div><div class="d">幅375pxで comp-sp.jpg と見比べる。ハンバーガー・ドロワー開閉・下部電話バー・横スクロールなしの4点も再確認</div></div>
+  <div class="row"><div class="t">ホバーの動き</div><div class="d">バナー（枠が金茶に）／Instagram（写真が拡大）／各ボタン・電話ブロック（濃くなる）。ホバーはカンプに写らないぶん、忘れやすいポイントです</div></div>
+  <div class="row"><div class="t">Topicsが「WPから」出ているか</div><div class="d">管理画面でお知らせのタイトルを1文字変えて、トップのTopicsに反映されるか確かめる。反映されなければ静的に書いてしまっています</div></div>
+  <div class="row"><div class="t">文言の転記ミス</div><div class="d">診療時間・住所・電話番号を、カンプと1文字ずつ照合する。デザインより先に、ここの間違いが一番の事故になります</div></div>
+</div>
+
+<div class="header"><span class="bar"></span><h3>提出</h3></div>
+<p>手元の正本フォルダ（<code>nagashima-dc</code>）をzipにして、教育担当に渡してください。<em>提出物は「手元の正本」であって、テスト環境からダウンロードし直したものではありません</em>——2章の役割分担、最後まで守れましたか？　あわせて、テスト環境のURLも伝えて実際の表示を見てもらいます。</p>
+<p class="sub">この次の段階は「下層ページ（css/under.css）」と「本番サーバーへの反映」です。どちらも先輩と一緒にやります。</p>
+
+<div class="onepoint">
+  <span class="tag">研修のゴール</span>
+  <h3>「カンプを渡されたら、一人でトップページを組める」</h3>
+  <p class="note">ここまで通せた人は、SLCのサイト制作の作業の型（複製 → 変数 → セクションごとに実装 → 突き合わせ）をひととおり体験したことになります。2件目からは、同じ型で速くなっていくだけです。できなかったSTEPがあっても、それが分かっていれば十分——どこで詰まったかを教育担当に伝えてください。</p>
+</div>
+
+<!-- ================= 8章 ================= -->
+<section class="chapter" id="ch8">
+  <div class="n">APPENDIX</div>
+  <h2 class="mincho">付録：つまずき集</h2>
+  <p class="desc">先輩たちが実際に踏んだものだけを載せています。ここに無い詰まり方をしたら、それは新しい発見なので、解決したらこのリストに足してもらいます。</p>
+</section>
+
+<div class="rows">
+  <div class="row"><div class="t">画面が真っ白になった</div><div class="d">ほぼ100%、PHPファイルの書き間違いです（閉じタグの消し忘れなど）。直前に触ったファイルを、手元の正本と template_theme の元ファイルで見比べて戻す。分からなければ、そのファイルだけ元のtemplate_themeからコピーし直せば復旧します</div></div>
+  <div class="row"><div class="t">CSSを直したのに変わらない</div><div class="d">①zipを作り直さずに古いzipを上げていないか ②アップロード後に「置き換える」を選んだか ③ブラウザのスーパーリロード（Ctrl+Shift+R）を試したか、の順で確認。テーマ側のキャッシュ対策は自動なので、だいたい①です</div></div>
+  <div class="row"><div class="t">フォントが明朝にならない</div><div class="d">functions.php のWebフォントの区間が、コメントのままになっていないか確認（<code>/*</code> と <code>*/</code> が残っていたら、まだコメントです）。次に、basic.css の font-family のスペルを確認</div></div>
+  <div class="row"><div class="t">SPメニューが開かない</div><div class="d"><code>#drawer-checkbox</code> のIDを変えていないか確認。menu-header-sp.php を編集するとき、input と label の for 属性のペアを崩すと開閉が壊れます</div></div>
+  <div class="row"><div class="t">画像が表示されない</div><div class="d">PHPの中の画像パスは <code>get_theme_file_uri( '/images/xxx.svg' )</code> という書き方になっています。既存の行をコピーして、ファイル名だけ変えるのが確実です。images/ にファイルを入れ忘れて zip を作っているパターンも多いです</div></div>
+  <div class="row"><div class="t">アップロードが失敗する</div><div class="d">まずもう一度試す（サーバー側の一時的な503はよくあります）。続くなら、zipの中に <code>node_modules/</code> などの巨大フォルダが紛れていないか、zipがテーマフォルダ自体を包んでいるか（中身だけ圧縮していないか）を確認</div></div>
+  <div class="row"><div class="t">テスト環境を壊したかも</div><div class="d">慌てない。正本は手元のフォルダにあります。自分のテーマを入れ直して直るならそれでOK。直らない・他に影響していそうなら、それ以上触らずに教育担当へ。「何をしたら、どうなったか」をそのまま言えれば十分です</div></div>
+  <div class="row"><div class="t">横スクロールが出る（SP）</div><div class="d">幅を px で固定した要素が犯人です。開発者ツールで要素を1つずつ消しながら特定し、width を % や max-width に変えます</div></div>
+</div>
+
+<p class="sub" style="margin-top:60px;text-align:center;">株式会社SLC　制作研修資料｜このテーマの構成が変わったときは、この手順書も合わせて更新してください。</p>
+
+</div>
+
+<aside class="prog" id="prog" aria-label="つよさ">
+  <button class="fold" id="pgFold" aria-expanded="false">おぼえたわざ</button>
+  <div class="win">
+    <div class="lvline">
+      <svg class="mascot lvmascot" id="pgMascot" viewBox="0 0 100 122" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Lv.3 マント -->
+        <g class="gear g3"><path class="ac" d="M28 97 L11 120 L28 120 Z"/><path class="ac" d="M72 97 L89 120 L72 120 Z"/></g>
+        <path class="ln" d="M28 118 v-14 a22 22 0 0 1 44 0 v14 z"/>
+        <path class="st" d="M42 96 l8 8 l8 -8" stroke-width="2.5"/>
+        <circle class="ln" cx="50" cy="56" r="30"/>
+        <path class="st" d="M50 27 q3 -11 11 -13 q-5 7 -3 13"/>
+        <path class="acst" d="M20 56 a30 30 0 0 1 60 0"/>
+        <rect class="ac" x="13" y="48" width="12" height="18" rx="4"/>
+        <rect class="ac" x="75" y="48" width="12" height="18" rx="4"/>
+        <path class="acst" d="M19 66 q-2 13 15 9" stroke-width="3"/>
+        <circle class="ac" cx="34" cy="75" r="3.2"/>
+        <ellipse class="cheek" cx="33" cy="65" rx="5.5" ry="3.6"/>
+        <ellipse class="cheek" cx="67" cy="65" rx="5.5" ry="3.6"/>
+        <circle class="eye" cx="40" cy="54" r="3.6"/>
+        <circle class="eye" cx="60" cy="54" r="3.6"/>
+        <path class="st" d="M45 67 q5 6 10 0" stroke-width="2.6"/>
+        <!-- Lv.2 ペン -->
+        <g class="gear g2"><path class="arm" d="M67 107 l11 -3"/><path class="pen" d="M75 110 l19 -14 l5 7 l-19 14 z"/><path class="nib" d="M75 110 l7 -5 l-1 7 z"/></g>
+        <!-- Lv.4 盾 -->
+        <g class="gear g4"><path class="ln" d="M4 92 h20 v14 q0 9 -10 13 q-10 -4 -10 -13 z"/><path class="acst" d="M14 97 v12 M8 102 h12" stroke-width="2.4"/></g>
+        <!-- Lv.5 王冠 -->
+        <g class="gear g5"><path class="crown" d="M33 27 L36 11 L44 20 L50 8 L56 20 L64 11 L67 27 z"/></g>
+      </svg>
+      <div class="lvtx">
+        <span class="lv">Lv.<b id="pgLv">1</b></span><span class="ttl mincho" id="pgTitle"></span>
+        <p class="able" id="pgAble"></p>
+      </div>
+    </div>
+    <div class="meter" id="pgMeter" aria-hidden="true"></div>
+    <p class="cnt">けいけんち <b id="pgDone">0</b>／<span id="pgTotal">16</span><span class="next" id="pgNext"></span></p>
+    <div class="wz">おぼえたわざ</div>
+    <ul class="skills" id="pgSkills"></ul>
+    <button class="reset" id="pgReset">はじめから</button>
+  </div>
+</aside>
+<div class="lvup" id="lvup" role="status" aria-live="polite"><div class="win" id="lvupTx"></div></div>
+
+<script>
+(function(){
+  var STORE='slc-theme-guide-progress-v1';
+
+  var SKILLS=[
+    {name:'転送のじゅつ',   sub:'複製と反映のループ',   keys:['step0']},
+    {name:'変数まほう',     sub:'色と文字を変数で持つ', keys:['step1','step2']},
+    {name:'先陣きり',       sub:'ヘッダーとFV',         keys:['step3','step4']},
+    {name:'れんげき',       sub:'セクションの量産',     keys:['step5','step6','step7']},
+    {name:'すがたかえ',     sub:'フッターとSP対応',     keys:['step8','step9']},
+    {name:'かんてい',       sub:'検品と提出',           keys:['fc0','fc1','fc2','fc3','fc4','fc5']}
+  ];
+  var LEVELS=[
+    {min:0,  lv:1, t:'駆け出し冒険者', a:'テーマを動かせる'},
+    {min:2,  lv:2, t:'見習いコーダー', a:'変数で色と文字を変えられる', g:'ペン'},
+    {min:5,  lv:3, t:'CSS使い',        a:'1ブロックを自力で組める',     g:'マント'},
+    {min:9,  lv:4, t:'テーマ職人',     a:'トップを通しで組める',        g:'たて'},
+    {min:14, lv:5, t:'WEB勇者',        a:'自分で検品して出せる',        g:'おうかん'}
+  ];
+
+  var state={};
+  try{ state=JSON.parse(localStorage.getItem(STORE)||'{}')||{}; }catch(e){ state={}; }
+  function save(){ try{ localStorage.setItem(STORE,JSON.stringify(state)); }catch(e){} }
+
+  /* --- トグルボタンを差し込む --- */
+  function mkBtn(key,label){
+    var b=document.createElement('button');
+    b.className='done'; b.type='button'; b.dataset.key=key;
+    b.setAttribute('aria-pressed','false');
+    b.innerHTML='<span class="bx"></span>'+label;
+    b.addEventListener('click',function(){
+      state[key]=!state[key]; if(!state[key]){ delete state[key]; }
+      save(); render();
+    });
+    return b;
+  }
+  var order=[];
+  for(var i=0;i<=9;i++){
+    var ex=document.getElementById('step'+i);
+    if(!ex) continue;
+    ex.querySelector('.ex-head').appendChild(mkBtn('step'+i,'クリア'));
+    order.push('step'+i);
+  }
+  var fc=document.getElementById('finalcheck');
+  if(fc){
+    var rows=fc.querySelectorAll('.row');
+    for(var j=0;j<rows.length;j++){
+      var k='fc'+j;
+      rows[j].insertBefore(mkBtn(k,'確認'),rows[j].firstChild);
+      order.push(k);
+    }
+  }
+
+  var elLv=document.getElementById('pgLv'), elTitle=document.getElementById('pgTitle'),
+      elAble=document.getElementById('pgAble'), elNext=document.getElementById('pgNext'),
+      elMeter=document.getElementById('pgMeter'), elDone=document.getElementById('pgDone'),
+      elTotal=document.getElementById('pgTotal'), elSkills=document.getElementById('pgSkills'),
+      elProg=document.getElementById('prog'), elMascot=document.getElementById('pgMascot'),
+      elUp=document.getElementById('lvup'),
+      elUpTx=document.getElementById('lvupTx');
+  elTotal.textContent=order.length;
+
+  /* メーターの目盛りとわざ行を1回だけ組む */
+  for(var m=0;m<order.length;m++){ elMeter.appendChild(document.createElement('i')); }
+  var skillLi=SKILLS.map(function(s){
+    var li=document.createElement('li');
+    li.innerHTML='<span class="nm"></span><span class="n"></span><span class="sub"></span>';
+    li.querySelector('.nm').textContent=s.name;
+    li.querySelector('.sub').textContent=s.sub;
+    elSkills.appendChild(li);
+    return li;
+  });
+
+  var lastLv=null, lastSkills=null, upTimer=null;
+  function render(){
+    var done=0;
+    for(var i=0;i<order.length;i++){ if(state[order[i]]) done++; }
+
+    document.querySelectorAll('.done').forEach(function(b){
+      var on=!!state[b.dataset.key];
+      b.setAttribute('aria-pressed',on?'true':'false');
+      var host=b.closest('.ex')||b.closest('.row');
+      if(host) host.classList.toggle('is-done',on);
+    });
+
+    var ticks=elMeter.children;
+    for(var t=0;t<ticks.length;t++){ ticks[t].classList.toggle('on',t<done); }
+    elDone.textContent=done;
+
+    var learned=[];
+    SKILLS.forEach(function(s,idx){
+      var n=s.keys.filter(function(k){ return state[k]; }).length;
+      var full=(n===s.keys.length);
+      var li=skillLi[idx];
+      li.classList.toggle('on',full);
+      li.classList.toggle('part',n>0&&!full);
+      li.querySelector('.n').textContent=full?'':(n>0?n+'/'+s.keys.length:'');
+      if(full) learned.push(s.name);
+    });
+
+    var cur=LEVELS[0], nextLv=null;
+    LEVELS.forEach(function(l,i){ if(done>=l.min){ cur=l; nextLv=LEVELS[i+1]||null; } });
+    elLv.textContent=cur.lv;
+    elTitle.textContent=cur.t;
+    elAble.textContent=cur.a;
+    for(var g=2;g<=5;g++){
+      var gg=elMascot.querySelector('.g'+g);
+      if(gg) gg.style.display=(cur.lv>=g)?'block':'none';
+    }
+    elNext.textContent=nextLv?('つぎのレベルまで あと '+(nextLv.min-done)):
+                       (done<order.length?('のこり '+(order.length-done)+' 項目'):'ぜんぶクリア！');
+    elProg.classList.toggle('clear',done===order.length);
+
+    /* レベルアップ・わざ習得の知らせ */
+    var msg=[];
+    if(lastSkills){
+      learned.forEach(function(nm){
+        if(lastSkills.indexOf(nm)<0) msg.push('<b>'+nm+'</b> をおぼえた！');
+      });
+    }
+    if(lastLv!==null&&cur.lv>lastLv){
+      msg.push('レベルが あがった！　Lv.<span class="em">'+cur.lv+'</span> <b>'+cur.t+'</b>');
+      if(cur.g) msg.push('スラ先輩は <b>'+cur.g+'</b> を てにいれた！');
+    }
+    if(msg.length){
+      elUpTx.innerHTML=msg.join('<br>');
+      elUp.classList.add('show');
+      clearTimeout(upTimer);
+      upTimer=setTimeout(function(){ elUp.classList.remove('show'); },3600);
+    }
+    lastLv=cur.lv; lastSkills=learned;
+  }
+
+  document.getElementById('pgReset').addEventListener('click',function(){
+    if(!confirm('クリア記録を全部消して、はじめからにします。よろしいですか？')) return;
+    state={}; save(); lastLv=null; lastSkills=null; render();
+  });
+  var fold=document.getElementById('pgFold');
+  fold.addEventListener('click',function(){
+    var open=elProg.classList.toggle('open');
+    fold.setAttribute('aria-expanded',open?'true':'false');
+    fold.textContent=open?'とじる':'おぼえたわざ';
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
