@@ -265,7 +265,7 @@
 <header class="cover">
   <span class="kind">社内資料｜制作研修</span>
   <h1 class="mincho">カンプどおりに作る、<br>最初の<span class="accent">ワンサイト</span>。</h1>
-  <p class="lede">社内のWordPressテンプレート「template_theme」を複製して、デザインカンプを1ページ再現するまでの手順書です。HTMLとCSSが書ければ進められます。PHPは読めなくて大丈夫です——本当です。この手順書のとおりに進めて、詰まったら遠慮なく先輩を呼んでください。</p>
+  <p class="lede">公開中のサイトのデータ一式を預かって、トップページをデザインカンプどおりにリニューアルするまでの手順書です。作るのはHTMLとCSSだけ。WordPressもPHPも使いません。この手順書のとおりに進めて、詰まったら遠慮なく先輩を呼んでください。</p>
   <div class="meta">株式会社SLC　制作研修（Web制作 コーディング編）</div>
   <div class="says"><div class="bubble">研修スライドぶりだね、スラ先輩です。<br>コーディングもやることは同じ。<b>1個ずつ確認しながら</b>進めれば必ず最後まで行けるよ。</div><svg class="mascot" viewBox="0 0 100 118" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <path class="ln" d="M28 118 v-14 a22 22 0 0 1 44 0 v14 z"/>
@@ -289,10 +289,10 @@
 <nav class="toc">
   <ol>
     <li><a href="#ch0">この手順書について</a></li>
-    <li><a href="#ch1">WordPressの、ほんとに最低限</a></li>
-    <li><a href="#ch2">作業環境をつくる（お名前.comのテスト環境）</a></li>
-    <li><a href="#ch3">テーマを複製する</a></li>
-    <li><a href="#ch4">触っていいファイル・ダメなファイル</a></li>
+    <li><a href="#ch1">静的サイトの、ほんとに最低限</a></li>
+    <li><a href="#ch2">作業環境をつくる（複製とブラウザ）</a></li>
+    <li><a href="#ch3">サイトの構成を読む・ひな形をつくる</a></li>
+    <li><a href="#ch4">触っていい場所・ダメな場所</a></li>
     <li><a href="#ch5">カンプを読む</a></li>
     <li><a href="#ch6">演習：カンプを再現する（STEP 0〜7）</a></li>
     <li><a href="#ch7">最終チェックと提出</a></li>
@@ -308,36 +308,36 @@
 </section>
 
 <p class="lead">ゴールは「カンプの再現」です。</p>
-<p>配布フォルダの <code>comp/comp-pc.jpg</code>（PC幅1440px）と <code>comp/comp-sp.jpg</code>（スマホ幅375px）が、今回のデザインカンプです。架空の案件「永嶌歯科クリニック」のトップページとして、このカンプと<em>見た目が一致するところまで</em>テーマを作り込みます。実案件のトップページと同じ、約22ブロックのフルボリュームです。</p>
+<p>配布フォルダの <code>comp/comp-pc.jpg</code>（PC幅1440px）と <code>comp/comp-sp.jpg</code>（スマホ幅375px）が、今回のデザインカンプです。実際に公開されている「永嶌歯科クリニック」のサイトデータ一式を預かり、トップページをこのカンプと<em>見た目が一致するところまで</em>作り替えます。下層ページは旧デザインのまま残します——実案件でよくある「トップ先行リニューアル」の形です。物量は実案件のトップと同じ、約22ブロックのフルボリュームです。</p>
 <div class="rows">
-  <div class="row"><div class="t">やること</div><div class="d">テーマの複製 → 作業環境の用意 → カンプを見ながらCSS（と少しのHTML）を実装 → 見た目の突き合わせ</div></div>
-  <div class="row"><div class="t">やらないこと</div><div class="d"><b>本番サーバーへの反映はこの研修ではやりません。</b>本番は手順も緊張感も別物なので、先輩と一緒にやる次の段階です。ほかに、下層ページ・お問い合わせフォーム・SEO設定・FVのスライダー化（JS）も今回は範囲外です</div></div>
-  <div class="row"><div class="t">必要なスキル</div><div class="d">HTMLとCSSが書けること。それだけです。PHPのファイルを開きますが、読めなくても進められるように書いてあります</div></div>
+  <div class="row"><div class="t">やること</div><div class="d">FTPでサイトデータ一式をダウンロード → 構成の把握 → 新しいトップをHTMLとCSSで実装 → 見た目の突き合わせ</div></div>
+  <div class="row"><div class="t">やらないこと</div><div class="d"><b>サーバーへのアップロード（公開）はこの研修ではやりません。</b>公開は手順も緊張感も別物なので、先輩と一緒にやる次の段階です。ほかに、下層ページの改修・共通部品（common/inc）への反映・お問い合わせフォーム・SEO設定・FVのスライダー化（JS）も今回は範囲外です</div></div>
+  <div class="row"><div class="t">必要なスキル</div><div class="d">HTMLとCSSが書けること。それだけです。サーバーの知識もJavaScriptも、今回は要りません</div></div>
   <div class="row"><div class="t">所要の目安</div><div class="d">2〜3週間。実案件1本ぶんの物量なので、1日で終わるものではありません。速さより「どこまでできて、どこで詰まったか」を言えることのほうが大事です</div></div>
-  <div class="row"><div class="t">配布物</div><div class="d">この手順書（guide.html）／カンプ画像（comp/）／素材（material/ … ロゴSVG・写真23枚・手順書用の図解画像。写真はUnsplashのフリー素材で、ファイル名が使う場所の名前になっています。例：fv.jpg＝ファーストビュー、team.jpg＝スタッフ集合）</div></div>
+  <div class="row"><div class="t">配布物</div><div class="d">この手順書（guide.html）／カンプ画像（comp/）／素材（material/ … ロゴSVG・写真23枚・手順書用の図解画像。写真はファイル名が使う場所の名前になっています。例：fv.jpg＝ファーストビュー、team.jpg＝スタッフ集合）。<b>サイトデータ一式は配布しません——2章でFTPを使って自分でダウンロードします</b></div></div>
 </div>
 <p class="sub">進め方はシンプルで、6章の STEP 0〜9 を順番にこなすだけです。1〜5章はそのための準備と予備知識です。</p>
 
 <!-- ================= 1章 ================= -->
 <section class="chapter" id="ch1">
   <div class="n">CHAPTER 01</div>
-  <h2 class="mincho">WordPressの、ほんとに最低限</h2>
-  <p class="desc">WordPressの解説書は分厚いですが、今回の作業に必要な知識は3つだけです。それ以外は、必要になったときに覚えれば十分です。</p>
+  <h2 class="mincho">静的サイトの、ほんとに最低限</h2>
+  <p class="desc">Web制作の解説書は分厚いですが、今回の作業に必要な知識は3つだけです。それ以外は、必要になったときに覚えれば十分です。</p>
 </section>
 
 <div class="rule">
-  <div class="rt"><span class="n">1</span>テーマ＝「サイトの見た目一式」が入ったフォルダ</div>
-  <p>WordPressの見た目は「テーマ」というフォルダで決まります。今回配られる template_theme もただのフォルダで、中にPHP・CSS・JSのファイルが入っています。このフォルダを丸ごとコピーして改造するのが、SLCのサイト制作の基本形です。</p>
+  <div class="rt"><span class="n">1</span>サイト＝ただのフォルダ1個</div>
+  <p>今回預かる ndc-dental.jp は「静的サイト」——HTML・CSS・画像が入ったただのフォルダです。サーバーはこのフォルダの中身をほぼそのまま配信しているだけです。あなたの成果物も、リニューアル後の<b>このフォルダ丸ごと1個</b>です。</p>
 </div>
 <div class="rule">
-  <div class="rt"><span class="n">2</span>PHPファイル＝ところどころに「穴」があいたHTML</div>
-  <p>テーマの中の .php ファイルを開くと、見慣れたHTMLの中に <code>&lt;?php ... ?&gt;</code> という区間が混ざっています。ここはWordPressが後から中身を流し込む「穴」です。<b>穴の中は今回いっさい触りません。</b>穴の周りのHTMLとクラス名だけを、カンプに合わせて書き換えます。</p>
+  <div class="rt"><span class="n">2</span>自分が書くパスは「相対」で書く</div>
+  <p>画像やCSSの場所は <code>img/photos/fv.jpg</code> のように、<b>index.html から見た道順（相対パス）</b>で書きます。既存ページには <code>/common/img/...</code> のような「ルート絶対パス」も出てきますが、これはサーバーに置いたときだけ効く書き方で、ローカルでダブルクリックした表示では効きません。今回自分が新しく書く部分は相対パスで統一します——トップページはフォルダの一番上にあるので、相対で書いてもサーバーに置いたときそのまま動きます。</p>
 </div>
 <div class="rule">
-  <div class="rt"><span class="n">3</span>front-page.php＝トップページ、page.php＝下層ページ</div>
-  <p>「どのファイルがどのページになるか」はファイル名で決まっています。今回触るのはトップページ＝ <code>front-page.php</code> だけです。下層（page.php ほか）は次の研修で扱います。</p>
+  <div class="rt"><span class="n">3</span>表示確認＝「保存 → ブラウザ再読み込み」</div>
+  <p>index.html をブラウザで開いておき、エディタで保存（Ctrl+S）するたびにブラウザを再読み込み（Ctrl+R）する。今回の確認方法はこれが全部です。アップロードもビルドも待ち時間もありません。</p>
 </div>
-<div class="says"><div class="bubble">「ループ」とか「フック」とか、WordPress用語はまだ<b>知らなくていい</b>よ。この3つさえ分かってれば今回の作業は全部できるから。</div><svg class="mascot" viewBox="0 0 100 118" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<div class="says"><div class="bubble">「デプロイ」とか「ビルド」とか、難しい用語はまだ<b>知らなくていい</b>よ。この3つさえ分かってれば今回の作業は全部できるから。</div><svg class="mascot" viewBox="0 0 100 118" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <path class="ln" d="M28 118 v-14 a22 22 0 0 1 44 0 v14 z"/>
   <path class="st" d="M42 96 l8 8 l8 -8" stroke-width="2.5"/>
   <circle class="ln" cx="50" cy="56" r="30"/>
@@ -357,104 +357,162 @@
 <!-- ================= 2章 ================= -->
 <section class="chapter" id="ch2">
   <div class="n">CHAPTER 02</div>
-  <h2 class="mincho">作業環境をつくる<br>（お名前.comのテスト環境）</h2>
-  <p class="desc">会社で用意している、お名前.comサーバー上のテスト用WordPressを使います。本物のサーバーで動く本物のWordPressです。ただし1つだけ、先に覚えてほしい原則があります。</p>
+  <h2 class="mincho">作業環境をつくる<br>（複製とブラウザ）</h2>
+  <p class="desc">エディタ（VS Code）・ブラウザ（Chrome）・FTPソフト（FileZilla）の3つを使います。サイトデータは配布されません——実案件と同じように、本番サーバーから自分でダウンロードするところから始めます。その前に、絶対の原則がひとつ。</p>
 </section>
 
 <div class="rule">
-  <div class="rt"><span class="n">原則</span>テスト環境は「表示確認器」。あなたの成果物は、手元のテーマフォルダ</div>
-  <p><b>コードの正本（マスター）は常に自分のPCのテーマフォルダ</b>に置き、テスト環境には「zipにして流し込んで表示を見るだけ」という役割分担にします。この形なら、テスト環境がいつ初期化されても失うものはありません。逆に、WordPressの管理画面にある「テーマファイルエディター」で直接コードを書くのは禁止です——手元の正本とズレて、どちらが本物か分からなくなります。</p>
+  <div class="rt"><span class="n">原則</span>FTPは「見る・落とす」だけ。サーバーには何ひとつアップロードしない</div>
+  <p>FTPソフトは、<b>公開中の本番サーバーに直結</b>しています。今回使っていいのは<b>ダウンロードだけ</b>です。サーバー側（右画面）へのドラッグ＆ドロップ・削除・リネームは絶対にしない。1回の誤操作が、そのまま公開中のサイトの事故になります。そしてダウンロードした一式は<b>まず丸ごと複製してから</b>作業を始めます。元のフォルダは何があっても戻れる保険なので、1文字も触りません。</p>
 </div>
 
 <div class="header"><span class="bar"></span><h3>最初のセットアップ</h3></div>
 <div class="steps">
-  <div class="st"><span class="num">1</span><div class="tx"><b>テスト環境の情報を受け取る</b><span>テスト環境のURLと管理画面のログイン情報は、教育担当から受け取ります。下の枠にメモしておいてください。</span></div></div>
-  <div class="st"><span class="num">2</span><div class="tx"><b>管理画面にログインする</b><span>テスト環境のURLの末尾に <code>/wp-admin/</code> を付けるとログイン画面が開きます。開いたら<b>必ずブックマーク</b>してください。本番サイトの管理画面と取り違えないためです。</span></div></div>
-  <div class="st"><span class="num">3</span><div class="tx"><b>入れたことを確認する</b><span>外観 → テーマ の一覧が開ければ準備完了です。</span></div></div>
+  <div class="st"><span class="num">1</span><div class="tx"><b>VS Code と FileZilla を入れる</b><span>VS Codeは社内標準のエディタ、FileZillaは無料のFTPソフトです。すでに入っていれば飛ばしてください。インストールで詰まったら教育担当へ。</span></div></div>
+  <div class="st"><span class="num">2</span><div class="tx"><b>FTPの接続情報を受け取って、接続する</b><span>ホスト名・ユーザー名・パスワードを教育担当から受け取り、FileZillaの「サイトマネージャー」に登録して接続します。つながると、左＝自分のPC、右＝サーバーの中身が並びます。<b>右側はもう本番です。</b>眺める以外のことはしないでください。</span></div></div>
+  <div class="st"><span class="num">3</span><div class="tx"><b>サイト一式をダウンロードする</b><span>自分のPCに空フォルダ <code>ndc-dental.jp</code> を作って左画面で開き、右画面（サーバーのルート）のフォルダ・ファイルを<b>全選択して左へダウンロード</b>します。ファイル数が多いので数分かかります。「失敗した転送」が出たら、最後にまとめて再試行してください。</span></div></div>
+  <div class="st"><span class="num">4</span><div class="tx"><b>複製して、作業フォルダにする</b><span>ダウンロードした <code>ndc-dental.jp</code> を丸ごとコピーし、フォルダ名を <code>ndc-renewal</code> に変えます。以後、このフォルダがあなたの正本です。元のフォルダはそのまま保管——何かあったらいつでもここへ戻れます。</span></div></div>
+  <div class="st"><span class="num">5</span><div class="tx"><b>VS Code でフォルダを開く</b><span>「ファイル → フォルダーを開く」で <code>ndc-renewal</code> を開きます。以後の作業はぜんぶこの画面の中でやります。左側にファイル一覧が出ていれば準備完了です。</span></div></div>
 </div>
 <div class="todo">
-  <div class="tt">【要記入】テスト環境の情報（教育担当から受け取って書く）</div>
-  <p>テスト環境URL：　　　　　　　　　　　　　　　／管理画面ID：　　　　　　　　／PW：教育担当の指示に従って保管（この紙には書かない）</p>
-</div>
-<div class="rule">
-  <div class="rt"><span class="n">注意</span>テスト環境は共用です</div>
-  <p>触っていいのは<b>自分のテーマだけ</b>。他の人のテーマ・プラグイン・WordPressの設定（パーマリンク以外）は変更しないでください。困ったら手を止めて教育担当へ。</p>
+  <div class="tt">【要記入】FTPの接続情報（教育担当から受け取って書く）</div>
+  <p>ホスト名：　　　　　　　　　　　　　　　／ユーザー名：　　　　　　　　／パスワード：教育担当の指示に従って保管（この紙には書かない）</p>
 </div>
 
-<div class="header"><span class="bar"></span><h3>テーマを反映する基本ループ（何十回もやります）</h3></div>
+<div class="header"><span class="bar"></span><h3>表示確認の基本ループ（何百回もやります）</h3></div>
 <div class="steps">
-  <div class="st"><span class="num">1</span><div class="tx"><b>手元のテーマフォルダを編集する</b><span>VS Codeなどのエディタで、自分のPCにあるテーマフォルダを直接編集します。</span></div></div>
-  <div class="st"><span class="num">2</span><div class="tx"><b>フォルダをzipにする</b><span>エクスプローラーでテーマフォルダを右クリック →「ZIP ファイルに圧縮する」（表示されない場合は「送る」→「圧縮 (zip 形式) フォルダー」）。テーマフォルダ自体をzipにします（フォルダを開いて中身だけ選んで圧縮しない）。</span></div></div>
-  <div class="st"><span class="num">3</span><div class="tx"><b>管理画面からアップロードする</b><span>外観 → テーマ → 新規テーマを追加 → テーマのアップロード → zipを選択 → 今すぐインストール。2回目からは「アップロードしたもので現在のものを置き換える」と聞かれるので、置き換えます。</span></div></div>
-  <div class="st"><span class="num">4</span><div class="tx"><b>有効化して、サイトを表示する</b><span>初回のみ「有効化」を押します。あとはサイトを開いて、変更が反映されたか目で確認します。反映されていないように見えたらスーパーリロード（Ctrl+Shift+R）。</span></div></div>
+  <div class="st"><span class="num">1</span><div class="tx"><b>エディタで編集して、保存する</b><span>Ctrl+S。VS Codeのタブに「●」が付いているあいだは未保存です。</span></div></div>
+  <div class="st"><span class="num">2</span><div class="tx"><b>ブラウザで再読み込みする</b><span>index.html をブラウザで開いておき（初回はファイルをダブルクリック）、Ctrl+R で再読み込み。変更が見た目に反映されたか目で確認します。</span></div></div>
+  <div class="st"><span class="num">3</span><div class="tx"><b>変わらなければスーパーリロード</b><span>Ctrl+Shift+R。ブラウザが古いCSSを覚え込んでいるときはこれで直ります。それでも変わらなければ、保存し忘れかセレクタの書き間違いです。</span></div></div>
 </div>
 <div class="todo">
-  <div class="tt">◎ 慣れてきた人向け：FTPで直接アップロードする方法</div>
-  <p>FileZillaなどのFTPソフトで <code>wp-content/themes/nagashima-dc/</code> に接続すると、変更したファイルだけを転送できて速くなります（FTP情報は教育担当から）。ただし転送先を1階層間違えると他のフォルダを上書きします。<b>まずはzipの基本ループで1周してから</b>にしてください。</p>
+  <div class="tt">◎ 慣れてきた人向け：Live Server で自動リロード</div>
+  <p>VS Codeの拡張機能「Live Server」を入れて右下の「Go Live」を押すと、保存した瞬間にブラウザが自動で再読み込みされます。便利ですが必須ではありません。<b>まずは手動リロードの基本ループで1周してから</b>で十分です。</p>
 </div>
 <div class="onepoint">
   <span class="tag">この章の 1 point</span>
-  <h3>「テスト環境が消えても困らない形」で作業できていればOK</h3>
-  <p class="note">正本は手元のフォルダ、テスト環境は確認用。この分担さえ守れていれば、テスト環境に何が起きても被害ゼロです。テーマファイルエディターでの直接編集だけは、絶対にしないこと。</p>
+  <h3>「フォルダごと渡せば、誰のPCでも同じに見える」状態をキープする</h3>
+  <p class="note">正本は手元のフォルダ、確認はブラウザ。使うファイルは必ずフォルダの中へ、パスは必ず相対で。この約束さえ守れていれば、提出のときに慌てることは何もありません。</p>
 </div>
 
 <!-- ================= 3章 ================= -->
 <section class="chapter" id="ch3">
   <div class="n">CHAPTER 03</div>
-  <h2 class="mincho">テーマを複製する</h2>
-  <p class="desc">template_theme を「今回の案件のテーマ」に仕立て直します。テーマのREADMEには複製チェックリストが14項目ありますが、今の時点で全部やる必要はありません。</p>
+  <h2 class="mincho">サイトの構成を読む・<br>ひな形をつくる</h2>
+  <p class="desc">コードを書く前に、預かったサイトが「どう出来ているか」を10分だけ眺めます。そのうえで、新しいトップページのひな形を作ります。ひな形のコードは考えずに、そのまま写して構いません。</p>
 </section>
 
-<div class="header"><span class="bar"></span><h3>まず、これだけやる</h3></div>
-<div class="steps">
-  <div class="st"><span class="num">1</span><div class="tx"><b>template_theme フォルダをコピーして、リネームする</b><span>今回は <code>nagashima-dc</code> という名前にします。以後、このフォルダがあなたの正本です。</span></div></div>
-  <div class="st"><span class="num">2</span><div class="tx"><b>style.css の先頭コメント（テーマヘッダー）を書き換える</b><span>フォルダ直下の style.css を開き、<code>Theme Name:</code> を「永嶌歯科クリニック」に、Description をひとこと案件の説明に変えます。WordPressはこのコメントを見てテーマを認識します。</span></div></div>
-  <div class="st"><span class="num">3</span><div class="tx"><b>zipにしてテスト環境へアップロード → 有効化</b><span>2章の基本ループ、1回目の実行です。外観 → テーマ の一覧に「永嶌歯科クリニック」が現れて有効化できたら、複製は成功です。</span></div></div>
+<div class="header"><span class="bar"></span><h3>全体の地図（複製した作業フォルダの中身）</h3></div>
+<pre>ndc-renewal/
+├─ index.html        <b>← トップページ。今回作り替える対象はこれだけ</b>
+├─ css/              <b>← トップ用CSS。ここに新しいCSSを足す</b>
+├─ img/              <b>← トップ用画像。ここにカンプの写真を足す</b>
+├─ common/
+│   ├─ css/          <b>← 全ページ共通のCSS（cmn_style.css ほか）</b>
+│   ├─ img/・js/     <b>← 共通の画像とJS</b>
+│   └─ inc/          <b>← ヘッダー・フッターなどの共通部品（下で説明）</b>
+├─ concept/ staff/ implant/ price/ …
+│   └─ index.html ＋ css/style.css ＋ img/  <b>← 下層ページ。全部この型</b>
+└─ contact/          <b>← お問い合わせフォーム（PHPプログラム入り）</b></pre>
+<div class="rows">
+  <div class="row"><div class="t">1ページ＝1フォルダ</div><div class="d">下層は「フォルダ＋index.html＋専用css/style.css＋専用img/」の型がずっと繰り返されています。どのページのファイルがどこにあるか、迷いようがない構成です</div></div>
+  <div class="row"><div class="t">CSSは3層</div><div class="d">①全ページ共通の <code>common/css/cmn_style.css</code> など ②下層共通の <code>cmn_subpage.css</code> ③各ページ専用の <code>style.css</code>。共通CSSを1行変えると全ページに効いてしまう——これが後の「触らない」ルールの理由です</div></div>
 </div>
 
-<div class="header"><span class="bar"></span><h3>残りのチェックリストは「演習の中で」消化する</h3></div>
-<p>テーマのコードには <code>▼▼ 案件ごとに書き換え ▼▼</code> というコメントが計18箇所埋まっています。エディタの全体検索で「案件ごとに書き換え」を検索してみてください——書き換えるべき場所の一覧がそのまま出てきます。<em>暗記は不要で、検索すれば全部見つかる</em>ようにテーマが作られています。</p>
-<table class="matrix">
-  <thead><tr><th>READMEのチェックリスト</th><th>いつやるか</th></tr></thead>
-  <tbody>
-    <tr><th>1. フォルダ名／2. テーマヘッダー</th><td><b>今やりました</b>（上のSTEP）</td></tr>
-    <tr><th>3. PCナビ／4. SPドロワー／5. フッター／6. カラーパレット／7. ベースフォント／8. Webフォント／11. ロゴ／13. パーマリンク再保存／14. 残りチェック</th><td><b>6章の演習の中で</b>順番にやります。それぞれのSTEPで案内します</td></tr>
-    <tr><th>9. GA4/GTM／10. JSON-LDの医院情報／12. screenshot.png</th><td><b>今回はやりません</b>（本番反映とセットの作業なので、次の段階で）</td></tr>
-  </tbody>
-</table>
+<div class="rule">
+  <div class="rt"><span class="n">仕組み</span>ヘッダーとフッターは「SSI」で差し込まれている</div>
+  <p>既存のHTMLを開くと <code>&lt;!--#include virtual="/common/inc/header.html"--&gt;</code> という行があります。これはSSI（サーバーサイドインクルード）——<b>サーバーが配信の瞬間に共通部品を差し込む</b>仕組みで、ヘッダー・フッター・共通CSSの読み込みは <code>common/inc/</code> のファイルに1本化されています。だから既存ページをローカルでダブルクリックしても、<b>ヘッダーもCSSも無い崩れた表示になります。壊れているわけではありません</b>——サーバーに置いて初めて完成する書き方なのです。</p>
+</div>
+
+<div class="rule">
+  <div class="rt"><span class="n">方針</span>新しいトップは「自己完結」で作る</div>
+  <p>今回のリニューアルでは、ヘッダーもフッターも新デザインに変わります。そこで新しいトップは<b>SSIを使わず、1枚のindex.htmlの中に全部書きます</b>。CSSも既存の共通CSSに頼らず、新規の <code>css/top.css</code> に全部書きます。こうすると①ローカルでダブルクリックするだけで完成形が確認できる ②既存の共通CSS・共通部品を一切触らないので、下層ページを壊しようがない ③トップはフォルダの一番上にあるので、相対パスのままサーバーに置いても動く——と、いいことずくめです。共通部品への切り出しと下層への展開は、次の段階で先輩とやります。</p>
+</div>
+
+<div class="header"><span class="bar"></span><h3>ひな形を書く</h3></div>
+<div class="steps">
+  <div class="st"><span class="num">1</span><div class="tx"><b>旧トップを保管する</b><span><code>index.html</code> を <code>index_old.html</code> にリネームします。削除はしません——実装中に「元のトップはどう書いていたか」を覗ける、いちばん身近な参考書になります。</span></div></div>
+  <div class="st"><span class="num">2</span><div class="tx"><b>css/reset.css を作る</b><span>下のコードをそのまま貼って保存します。ブラウザごとの標準スタイル（余白や点付きリスト）を消して、同じスタート地点に立つためのファイルです。</span></div></div>
+</div>
+<pre>*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+img{max-width:100%;height:auto;display:block;}
+ul,ol{list-style:none;}
+a{color:inherit;text-decoration:none;}
+button,input,textarea,select{font:inherit;}
+body{-webkit-text-size-adjust:100%;}</pre>
+<div class="steps">
+  <div class="st"><span class="num">3</span><div class="tx"><b>新しい index.html を作る</b><span>下のコードをそのまま貼って保存します。<code>&lt;title&gt;</code> と <code>&lt;meta name="description"&gt;</code> は <code>index_old.html</code> の先頭からコピーしてください（SEOの資産なので勝手に変えません）。<code>&lt;main&gt;</code> の中のセクションを、6章で上から順に増やしていきます。</span></div></div>
+</div>
+<pre>&lt;!doctype html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+&lt;title&gt;<b>（index_old.html からコピー）</b>&lt;/title&gt;
+&lt;meta name="description" content="<b>（index_old.html からコピー）</b>"&gt;
+&lt;link rel="stylesheet" href="css/reset.css"&gt;
+&lt;link rel="stylesheet" href="css/top.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;header class="site-header"&gt;&lt;/header&gt;
+&lt;main&gt;
+  &lt;section class="fv"&gt;&lt;/section&gt;
+  <b>&lt;!-- ここにセクションを上から足していく --&gt;</b>
+&lt;/main&gt;
+&lt;footer class="site-footer"&gt;&lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+<div class="steps">
+  <div class="st"><span class="num">4</span><div class="tx"><b>css/top.css を新規作成して、先頭に「変数の枠」を作る</b><span>下のコードをそのまま貼って保存します。いまは全部グレーの仮色です。本番の色に入れ替えるのは6章のSTEP 1でやります——ここでは枠だけ。既存の <code>css/style.css</code> は旧トップ用なので触らず、そのまま残します。</span></div></div>
+</div>
+<pre>:root{
+  --c-primary:#666666;      <b>/* メインカラー */</b>
+  --c-accent:#999999;       <b>/* アクセント */</b>
+  --c-cta:#666666;          <b>/* ボタン地色 */</b>
+  --c-cta-hover:#444444;    <b>/* ボタンhover */</b>
+  --c-bg:#ffffff;           <b>/* ページ背景 */</b>
+  --c-surface:#eeeeee;      <b>/* 色面の背景 */</b>
+  --c-border:#dddddd;       <b>/* 罫線 */</b>
+  --c-text:#333333;         <b>/* 本文文字 */</b>
+  --c-text-muted:#888888;   <b>/* 補足文字 */</b>
+}
+body{background:var(--c-bg);color:var(--c-text);}
+
+<b>/* ここからトップページのスタイルを実装 */</b></pre>
+<div class="steps">
+  <div class="st"><span class="num">5</span><div class="tx"><b>素材をコピーして、表示を確認する</b><span>配布の <code>material/logo.svg</code> を <code>img/</code> へ、<code>material/photos/</code> の23枚を <code>img/photos/</code>（新規フォルダ）へコピー。最後に index.html をダブルクリックしてブラウザで開きます。真っ白なページでも、タブに「永嶌歯科クリニック」と出ていればひな形は成功です。</span></div></div>
+</div>
 
 <!-- ================= 4章 ================= -->
 <section class="chapter" id="ch4">
   <div class="n">CHAPTER 04</div>
-  <h2 class="mincho">触っていいファイル・ダメなファイル</h2>
-  <p class="desc">怖がらせたいわけではなくて、逆です。「ここ以外は壊しようがない」と分かっていたほうが、思い切って書けます。</p>
+  <h2 class="mincho">触っていい場所・ダメな場所</h2>
+  <p class="desc">動いているサイトのデータを預かる以上、ここが一番大事な章です。怖がらせたいわけではなくて、逆——「ここ以外は壊しようがない」と分かっていたほうが、思い切って書けます。</p>
 </section>
 
 <div class="vs">
   <div>
     <div class="head">触っていい（今回の作業場所）</div>
     <ul>
-      <li><code>css/style.css</code><small>色の定義（:root）とトップページのスタイル。一番よく触る</small></li>
-      <li><code>css/basic.css</code><small>ベースフォント・見出しの共通スタイル</small></li>
-      <li><code>front-page.php</code><small>トップページのHTML骨格。「穴」以外の部分</small></li>
-      <li><code>parts/menu-header-pc.php</code> / <code>menu-header-sp.php</code><small>ヘッダー・ナビ・SPドロワーのHTML</small></li>
-      <li><code>footer.php</code><small>フッターのHTML</small></li>
-      <li><code>functions.php</code> の58行目付近<b>だけ</b><small>Webフォント読み込みのコメントを外す1箇所のみ</small></li>
-      <li><code>images/</code><small>ロゴや画像を置く場所</small></li>
+      <li><code>index.html</code><small>新しいトップの中身ぜんぶ。ヘッダー → 約22ブロック → フッターを、カンプの上から順に</small></li>
+      <li><code>css/top.css</code>（新規）<small>新しいトップの見た目ぜんぶ。先頭に:root（色の変数）→ フォントなどの共通指定 → セクション順 → 末尾にSP用の@mediaを1つ、の順で書く</small></li>
+      <li><code>css/reset.css</code>（新規・作ったら触らない）<small>3章で作った土台</small></li>
+      <li><code>img/</code><small>ロゴと写真の追加。既存ファイルは消さない（下層ページが使っている可能性があります）</small></li>
     </ul>
   </div>
   <div class="ng">
     <div class="head">触らない（理由つき）</div>
     <ul>
-      <li><code>css/reset.css</code><small>全ブラウザの表示を揃える土台。触ると原因不明のズレが起きる</small></li>
-      <li><code>functions.php</code> の58行目付近<b>以外</b><small>投稿タイプやサイトマップの機能定義。1文字のミスでサイト全体が真っ白になる</small></li>
-      <li><code>src/</code>・<code>build/</code><small>専用ブロックのプログラム。ビルドという別工程が必要</small></li>
-      <li><code>metabox/</code><small>GA4や構造化データの記入場所。本番反映時に先輩とやる</small></li>
-      <li><code>css/under.css</code>・<code>archive-news.css</code><small>下層・一覧ページ用。今回は出番なし（壊れはしないが触る必要がない）</small></li>
+      <li><code>common/css/</code> の cmn_*.css<small>全ページ共通のCSS。1行変えると下層ぜんぶに効いてしまう</small></li>
+      <li><code>common/inc/</code><small>全ページ共通のヘッダー・フッター部品（SSI）。ここの差し替えは本番反映とセットで、先輩とやる次の段階</small></li>
+      <li><code>concept/</code> などの下層フォルダ<small>今回は旧デザインのまま並行稼働させる。1文字も触らない</small></li>
+      <li><code>contact/</code><small>お問い合わせフォームのPHPプログラム。壊すと問い合わせが止まります</small></li>
+      <li><code>.htaccess</code>・<code>sitemap.xml</code> などルートの設定ファイル<small>サーバーの動きを決めるファイル。表示のリニューアルとは別の仕事</small></li>
+      <li>HTMLの <code>style=""</code> 属性への直書き<small>あとから直せなくなる。スタイルは必ず top.css へ。色は <code>var(--c-primary)</code> のように変数で</small></li>
     </ul>
   </div>
 </div>
-<p class="sub">もし「ダメ」側を触って画面が真っ白になっても、手元の正本フォルダが無事なら元に戻せます。8章のつまずき集を見てください。</p>
+<p class="sub">まとめると、今回書き換えるのは <code>index.html</code> と、新規に作る <code>css/top.css</code> の実質2ファイルだけ。この2つの中では何を書いても、公開中の他のページを壊しようがありません。</p>
 
 <!-- ================= 5章 ================= -->
 <section class="chapter" id="ch5">
@@ -467,8 +525,8 @@
 <div class="rows">
   <div class="row"><div class="t">PCとSPを並べて見る</div><div class="d">同じセクションがPCとSPでどう変形するか（3列→1列、横並び→縦積み）を先に把握しておくと、CSSの書き方（メディアクエリ）が決めやすくなります</div></div>
   <div class="row"><div class="t">繰り返しの単位を探す</div><div class="d">「強みの6枚」「診療項目の9枚」「医院紹介の3行」はどれも同じ部品の繰り返しです。1個ぶんのHTMLとCSSを作れば、残りはコピーで済みます。約22ブロックありますが、部品の種類はずっと少ないです</div></div>
-  <div class="row"><div class="t">色数を数える</div><div class="d">このカンプは実質5色（濃茶・金茶・ベージュ・白・グレー系の文字色）しか使っていません。下のスタイルガイドの変数に全部対応しています</div></div>
-  <div class="row"><div class="t">背景のリズムを見る</div><div class="d">白 → 斜めパターンのベージュ → 濃茶、の3種類の帯が交互に来る構成です。どのセクションがどの背景か、先に鉛筆でメモしておくと迷子になりません</div></div>
+  <div class="row"><div class="t">色数を数える</div><div class="d">このカンプは実質5色（紺・青・淡い青・白・グレー系の文字色）しか使っていません。下のスタイルガイドの変数に全部対応しています</div></div>
+  <div class="row"><div class="t">背景のリズムを見る</div><div class="d">白 → 斜めパターンの淡い青 → 紺、の3種類の帯が交互に来る構成です。どのセクションがどの背景か、先に鉛筆でメモしておくと迷子になりません</div></div>
 </div>
 
 <div class="header"><span class="bar"></span><h3>スタイルガイド（この表の値をそのまま使う）</h3></div>
@@ -476,17 +534,17 @@
 <table class="matrix">
   <thead><tr><th>CSS変数</th><th>値</th><th>使いどころ</th></tr></thead>
   <tbody>
-    <tr><th><code>--c-primary</code></th><td><span class="swatch" style="background:#44200d"></span><code>#44200d</code></td><td>メインの濃茶。見出し・ヘッダーの電話ブロック・フッター背景</td></tr>
-    <tr><th><code>--c-accent</code></th><td><span class="swatch" style="background:#b28c55"></span><code>#b28c55</code></td><td>金茶。見出し脇の短い罫線・英字ラベル・日付</td></tr>
-    <tr><th><code>--c-cta</code></th><td><span class="swatch" style="background:#44200d"></span><code>#44200d</code></td><td>電話などのボタン地色（メインと同色）</td></tr>
-    <tr><th><code>--c-cta-hover</code></th><td><span class="swatch" style="background:#1f0e07"></span><code>#1f0e07</code></td><td>ボタンのホバー時。濃くする</td></tr>
+    <tr><th><code>--c-primary</code></th><td><span class="swatch" style="background:#075195"></span><code>#075195</code></td><td>メインの青。見出し・ヘッダーの電話ブロック</td></tr>
+    <tr><th><code>--c-accent</code></th><td><span class="swatch" style="background:#2e85d5"></span><code>#2e85d5</code></td><td>明るい青。見出し脇の短い罫線・英字ラベル・日付</td></tr>
+    <tr><th><code>--c-cta</code></th><td><span class="swatch" style="background:#075195"></span><code>#075195</code></td><td>電話などのボタン地色（メインと同色）</td></tr>
+    <tr><th><code>--c-cta-hover</code></th><td><span class="swatch" style="background:#053a6b"></span><code>#053a6b</code></td><td>ボタンのホバー時。濃くする</td></tr>
     <tr><th><code>--c-bg</code></th><td><span class="swatch" style="background:#ffffff"></span><code>#ffffff</code></td><td>ページ背景の白</td></tr>
-    <tr><th><code>--c-surface</code></th><td><span class="swatch" style="background:#eee2db"></span><code>#eee2db</code></td><td>ベージュの色面。FV・お知らせ帯・アクセス帯の背景</td></tr>
-    <tr><th><code>--c-border</code></th><td><span class="swatch" style="background:#e2dfdd"></span><code>#e2dfdd</code></td><td>1pxの罫線ぜんぶ</td></tr>
+    <tr><th><code>--c-surface</code></th><td><span class="swatch" style="background:#dfeaf5"></span><code>#dfeaf5</code></td><td>淡い青の色面。FV・お知らせ帯・アクセス帯の背景</td></tr>
+    <tr><th><code>--c-border</code></th><td><span class="swatch" style="background:#e3e8ec"></span><code>#e3e8ec</code></td><td>1pxの罫線ぜんぶ</td></tr>
     <tr><th><code>--c-text</code></th><td><span class="swatch" style="background:#333333"></span><code>#333333</code></td><td>本文の文字色</td></tr>
     <tr><th><code>--c-text-muted</code></th><td><span class="swatch" style="background:#7f7f7e"></span><code>#7f7f7e</code></td><td>補足・注釈の文字色</td></tr>
-    <tr><th><code>--c-primary-d</code>（追加）</th><td><span class="swatch" style="background:#3a2619"></span><code>#3a2619</code></td><td>濃茶の面。「強み」「フッター」などの帯背景。テーマの9変数に<b>2行追記</b>する</td></tr>
-    <tr><th><code>--c-accent-d</code>（追加）</th><td><span class="swatch" style="background:#8b652f"></span><code>#8b652f</code></td><td>金茶の濃色。アイコンの線・番号など</td></tr>
+    <tr><th><code>--c-primary-d</code>（追加）</th><td><span class="swatch" style="background:#0f2d44"></span><code>#0f2d44</code></td><td>紺の面。「強み」「フッター」などの帯背景。:root の9変数に<b>2行追記</b>する</td></tr>
+    <tr><th><code>--c-accent-d</code>（追加）</th><td><span class="swatch" style="background:#075195"></span><code>#075195</code></td><td>青の濃色。アイコンの線・番号など</td></tr>
   </tbody>
 </table>
 <table class="matrix">
@@ -496,9 +554,9 @@
     <tr><th>英字フォント</th><td><b>Cardo</b>（Google Fonts）。セクションの英字ラベル・電話番号・日付に使う</td></tr>
     <tr><th>本文フォント</th><td>游ゴシック体のスタック（Webフォント不要）：<code>"游ゴシック体", "Yu Gothic", YuGothic, "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, sans-serif</code>／15px・行間2・字間0.05em</td></tr>
     <tr><th>Google Fonts のURL</th><td><code>https://fonts.googleapis.com/css2?family=Cardo:ital@0;1&amp;family=Shippori+Mincho:wght@500;600&amp;display=swap</code>（STEP2で使います）</td></tr>
-    <tr><th>コンテンツ幅</th><td>最大1200px。テーマに <code>.mw1200</code> という既製クラスがあるので、セクションの内側に付けるだけでOK</td></tr>
-    <tr><th>ブレークポイント</th><td><b>768px</b>（テーマ共通）。SP用のスタイルは <code>@media screen and (max-width: 768px)</code> にまとめる</td></tr>
-    <tr><th>斜めパターン背景</th><td>ベージュ地 <code>#f2ece5</code> に、45度と135度の <code>linear-gradient</code> を2枚重ねて大きな斜めの色面を作る（画像は使わない）。作り方が分からなければ講師に聞いてOK。ここは詰まりやすいポイントです</td></tr>
+    <tr><th>コンテンツ幅</th><td>最大1200px。<code>.inner{ max-width:1200px; margin:0 auto; }</code> のような共通クラスを1つ作り、各セクションの内側に付けて使い回す</td></tr>
+    <tr><th>ブレークポイント</th><td><b>768px</b>（社内共通）。SP用のスタイルは <code>@media screen and (max-width: 768px)</code> にまとめる</td></tr>
+    <tr><th>斜めパターン背景</th><td>淡い青の地 <code>#eef2f5</code> に、45度と135度の <code>linear-gradient</code> を2枚重ねて大きな斜めの色面を作る（画像は使わない）。作り方が分からなければ講師に聞いてOK。ここは詰まりやすいポイントです</td></tr>
   </tbody>
 </table>
 
@@ -510,7 +568,7 @@
   <div class="st"><span class="num">3</span><div class="tx"><b>実際の値は「Computed」タブで確認する</b><span>Stylesは「書いてあるCSS」、Computedは「最終的に適用された値」です。フォントの確定値は Computed の font-family、さらに下の「Rendered Fonts」を見ると、実際にどのフォントで描画されたかまで分かります（Webフォントが読めているかの確認にも使えます）。</span><img src="material/guide-img/devtools-computed.png" alt="Computedタブ。最下部のRendered Fontsで実際の描画フォントが分かる"></div></div>
   <div class="st"><span class="num">4</span><div class="tx"><b>色はスウォッチから拾う</b><span>Stylesの色付き四角（スウォッチ）をクリックするとカラーピッカーが開き、カラーコードをコピーできます。左下のスポイトアイコンを押すと、画面上の好きな場所の色を拾えます。</span><img src="material/guide-img/devtools-color.png" alt="スウォッチをクリックするとカラーピッカーが開く。左下がスポイト"></div></div>
   <div class="st"><span class="num">5</span><div class="tx"><b>余白はハイライトの色で見る</b><span>要素を選択すると、ページ上に margin がオレンジ、padding が緑で表示されます（下の図の左）。数値は Computed 上部のボックスモデル図（右）に出ています。「この余白、何pxだろう」はこれで一発です。</span><img src="material/guide-img/devtools-boxmodel.png" alt="左：ページ上のオレンジ＝margin・緑＝padding。右：ボックスモデル図"></div></div>
-  <div class="st"><span class="num">6</span><div class="tx"><b>その場で書き換えて実験する</b><span>Stylesの値はクリックするとその場で編集できます（↑↓キーで1pxずつ増減。リロードすれば元どおり）。「この影を消したらどう見えるか」「このpaddingを増やしたら」を、コードを書く前に試せます。<b>自分のテスト環境の調整にも同じ技が使えます</b>——DevToolsで数値を調整して正解を見つけてから、style.cssに書き写すと速いです。</span><img src="material/guide-img/devtools-edit.png" alt="値をクリックして直接書き換えている状態。リロードで元に戻る"></div></div>
+  <div class="st"><span class="num">6</span><div class="tx"><b>その場で書き換えて実験する</b><span>Stylesの値はクリックするとその場で編集できます（↑↓キーで1pxずつ増減。リロードすれば元どおり）。「この影を消したらどう見えるか」「このpaddingを増やしたら」を、コードを書く前に試せます。<b>自分の作っているページの調整にも同じ技が使えます</b>——DevToolsで数値を調整して正解を見つけてから、top.cssに書き写すと速いです。</span><img src="material/guide-img/devtools-edit.png" alt="値をクリックして直接書き換えている状態。リロードで元に戻る"></div></div>
 </div>
 <div class="rule">
   <div class="rt"><span class="n">禁止</span>「見て学ぶ」のはOK。「コピーする」のはNG</div>
@@ -534,7 +592,7 @@
 </svg></div>
 
 <div class="header"><span class="bar"></span><h3>背景画像とバナーは、ChatGPTでつくる</h3></div>
-<p>この研修では背景はCSSだけで作り（カンプの斜めベージュは <code>linear-gradient</code> を2枚重ねただけです）、写真は配布素材を使います。ただし実案件では「この帯にちょっと質感がほしい」「バナーの下地が足りない」が必ず出ます。そこで素材サイトを延々と探すより、<em>ChatGPTの画像生成で作ってしまうほうが速い</em>——これが今の会社の推奨です。ただし万能ではないので、使い分けを先に決めます。</p>
+<p>この研修では背景はCSSだけで作り（カンプの斜めの淡い青は <code>linear-gradient</code> を2枚重ねただけです）、写真は配布素材を使います。ただし実案件では「この帯にちょっと質感がほしい」「バナーの下地が足りない」が必ず出ます。そこで素材サイトを延々と探すより、<em>ChatGPTの画像生成で作ってしまうほうが速い</em>——これが今の会社の推奨です。ただし万能ではないので、使い分けを先に決めます。</p>
 
 <div class="vs">
   <div>
@@ -570,7 +628,7 @@
   <p>Webサイトの背景に敷く画像を作ってください。</p>
   <span class="li">サイズは1024×1024の正方形。上下左右がつながって、タイル状に繰り返せること</span>
   <span class="li">柄は45度の斜めストライプ。太さは均一、境目はくっきり</span>
-  <span class="li">地の色は #F2ECE5、ストライプは白を半分の濃さで重ねた程度の、ごく弱いコントラスト</span>
+  <span class="li">地の色は #EEF2F5、ストライプは白を半分の濃さで重ねた程度の、ごく弱いコントラスト</span>
   <span class="li">フラットな塗りで。写真的な質感、立体感、影、グラデーションは入れない</span>
   <span class="li">文字・ロゴ・イラストは一切入れない</span>
 </div>
@@ -580,7 +638,7 @@
   <p>Webサイトのセクション背景に敷く、紙の質感の画像を作ってください。</p>
   <span class="li">サイズは横1600×縦1000</span>
   <span class="li">和紙のような細かい繊維の質感。遠目には無地に見える程度の弱さで</span>
-  <span class="li">色は全体に #F7F3EC 前後の生成り。色ムラは弱く</span>
+  <span class="li">色は全体に #F4F7F9 前後の淡い青みグレー。色ムラは弱く</span>
   <span class="li">四隅を暗くするビネットは付けない。中央と端の明るさを揃える</span>
   <span class="li">柄・模様・文字は入れない</span>
 </div>
@@ -590,7 +648,7 @@
   <p>歯科医院のWebサイトで使うバナーの背景画像を作ってください。</p>
   <span class="li">サイズは横800×縦500</span>
   <span class="li">明るく落ち着いた診療室の情景。人物・顔・手は写さない</span>
-  <span class="li">色はベージュと白木の暖色でまとめ、彩度は低め</span>
+  <span class="li">色は淡い青と白の寒色でまとめ、彩度は低め</span>
   <span class="li">左半分に文字を載せるので、大きな被写体を左に置かず、明るい余白にする</span>
   <span class="li">画像の中に文字・ロゴ・アイコンは入れない</span>
   <span class="li">広角レンズの歪み、強い影、極端なボケは避ける</span>
@@ -632,47 +690,47 @@
 <section class="chapter" id="ch6">
   <div class="n">CHAPTER 06</div>
   <h2 class="mincho">演習：カンプを再現する</h2>
-  <p class="desc">ここが本体です。STEP 0〜9 を順番に。各STEPの終わりに「✔ できたかの確認」があるので、確認してから次へ進んでください。どのSTEPも、終わったら2章の基本ループ（zip → アップロード → 表示）で反映します。1ブロック作るごとに反映して眺める——このリズムを崩さないのが完走のコツです。</p>
+  <p class="desc">ここが本体です。STEP 0〜9 を順番に。各STEPの終わりに「✔ できたかの確認」があるので、確認してから次へ進んでください。どのSTEPも、2章の基本ループ（保存 → ブラウザ再読み込み）で確認しながら進めます。1ブロック作るごとに眺める——このリズムを崩さないのが完走のコツです。</p>
 </section>
 
 <div class="ex" id="step0">
-  <div class="ex-head"><span class="stepno">STEP 0</span><b>複製と有効化</b><span class="time">済んでいるはず</span></div>
+  <div class="ex-head"><span class="stepno">STEP 0</span><b>ひな形の表示確認</b><span class="time">済んでいるはず</span></div>
   <div class="ex-body">
-    <p>3章でやった内容そのものです。まだの人はここで済ませてください。</p>
-    <div class="check"><span class="ck">✔ 確認</span>外観 → テーマ に「永嶌歯科クリニック」が表示され、有効化できている。サイトを表示すると、グレー一色の骨格ページが出る。</div>
+    <p>3章でやった内容そのものです。まだの人はここで済ませてください。あわせて、CSSがちゃんと繋がっているかを1回だけ実験します——top.css の body に <code>background:#f00;</code> と仮に書いて保存 → 再読み込みでページが赤くなれば接続OK。確認したら消してください。</p>
+    <div class="check"><span class="ck">✔ 確認</span>ブラウザのタブに「永嶌歯科クリニック」と出ている。仮の背景色の実験で、保存 → 再読み込みすると色が変わる（＝CSSが繋がっている）。</div>
   </div>
 </div>
 
 <div class="ex" id="step1">
   <div class="ex-head"><span class="stepno">STEP 1</span><b>カラーパレットを転記する</b><span class="time">目安 30分</span></div>
   <div class="ex-body">
-    <p class="file">編集： <code>css/style.css</code> の <code>:root</code></p>
-    <p>style.css の先頭にある <code>:root</code> の9変数（いまは全部グレー）に、5章のスタイルガイドの値を転記します。作業はこれだけですが、<em>テーマ中の色が一度に切り替わる</em>のを見てください。色を必ず変数で持つのは、あとから「もう少し明るく」と言われたときに1箇所直せば全部変わるようにするためです。</p>
-    <div class="check"><span class="ck">✔ 確認</span>サイト全体がグレーから茶系に変わる。開発者ツール（F12）で <code>&lt;html&gt;</code> を選び、Computed に <code>--c-primary: #44200d</code> が出ていればなお確実。</div>
+    <p class="file">編集： <code>css/top.css</code> の <code>:root</code></p>
+    <p>3章で作った <code>:root</code> の9変数（いまは全部グレー）に、5章のスタイルガイドの値を転記します。まだページがほぼ空なので見た目の変化は小さいですが、この先セクションを作るときは<em>色を必ず <code>var(--c-primary)</code> のように変数で指定</em>してください。あとから「もう少し明るく」と言われたときに、1箇所直せば全部変わるようにするためです。</p>
+    <div class="check"><span class="ck">✔ 確認</span>開発者ツール（F12）で <code>&lt;html&gt;</code> を選び、Computed に <code>--c-primary: #075195</code> が出ている。転記ミス（6桁の写し間違い）がないか、9変数とも5章の表と見比べる。</div>
   </div>
 </div>
 
 <div class="ex" id="step2">
   <div class="ex-head"><span class="stepno">STEP 2</span><b>フォントを設定する</b><span class="time">目安 1時間</span></div>
   <div class="ex-body">
-    <p class="file">編集： <code>functions.php</code> の58行目付近 ＋ <code>css/basic.css</code></p>
+    <p class="file">編集： <code>index.html</code> の <code>&lt;head&gt;</code> ＋ <code>css/top.css</code></p>
     <div class="steps">
-      <div class="st"><span class="num">1</span><div class="tx"><b>Webフォントの読み込みを有効化する</b><span>functions.php の「▼▼ 案件ごとに書き換え：Webフォント ▼▼」に、コメントアウトされた <code>wp_enqueue_style(...)</code> の例があります。コメントを外し、URLを5章のGoogle FontsのURLに差し替えます。functions.php を触るのは、この研修ではここだけです。</span></div></div>
-      <div class="st"><span class="num">2</span><div class="tx"><b>basic.css のフォント指定を書き換える</b><span>「▼▼ 案件ごとに書き換え：ベースフォント・見出し ▼▼」の区間で、body を游ゴシックのスタックに、h2・h3 に Shippori Mincho を指定します。値は5章の表のとおりです。</span></div></div>
+      <div class="st"><span class="num">1</span><div class="tx"><b>Google Fonts を読み込む</b><span>index.html の <code>&lt;head&gt;</code> 内、reset.css の <code>&lt;link&gt;</code> より上に次の3行を貼ります。URLは5章の表のものです。<br><code>&lt;link rel="preconnect" href="https://fonts.googleapis.com"&gt;</code><br><code>&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin&gt;</code><br><code>&lt;link href="（5章のGoogle FontsのURL）" rel="stylesheet"&gt;</code></span></div></div>
+      <div class="st"><span class="num">2</span><div class="tx"><b>top.css にフォント指定を書く</b><span>:root の下に、body を游ゴシックのスタックに（15px・行間2・字間0.05em）、h2・h3 に Shippori Mincho を指定します。値は5章の表のとおりです。</span></div></div>
     </div>
-    <div class="check"><span class="ck">✔ 確認</span>見出し「お知らせ」が明朝体に変わる。開発者ツールで見出しを選び、Computed の font-family に Shippori Mincho が出ていること（出ていなければ functions.php のコメント解除を見直す）。</div>
+    <div class="check"><span class="ck">✔ 確認</span>index.html に仮の <code>&lt;h2&gt;お知らせ&lt;/h2&gt;</code> を書いて保存 → 明朝体で表示される。開発者ツールで見出しを選び、Computed 最下部の Rendered Fonts に Shippori Mincho が出ていればWebフォントが効いています。確認したら仮の見出しは消してOK。</div>
   </div>
 </div>
 
 <div class="ex" id="step3">
   <div class="ex-head"><span class="stepno">STEP 3</span><b>ヘッダーと「無料相談」タブ</b><span class="time">目安 半日</span></div>
   <div class="ex-body">
-    <p class="file">編集： <code>images/</code> ＋ <code>parts/menu-header-pc.php</code> ＋ <code>css/style.css</code></p>
+    <p class="file">編集： <code>index.html</code> の <code>&lt;header&gt;</code> ＋ <code>css/top.css</code></p>
     <div class="steps">
-      <div class="st"><span class="num">1</span><div class="tx"><b>ロゴを置く</b><span>配布の <code>material/logo.svg</code> をテーマの <code>images/logo.svg</code> にコピーします。写真素材（material/photos/ の23枚）も、このタイミングで <code>images/photos/</code> にまとめてコピーしておくと以後が楽です。</span></div></div>
-      <div class="st"><span class="num">2</span><div class="tx"><b>menu-header-pc.php をカンプのヘッダーに作り替える</b><span>カンプのヘッダーは、左：ロゴ＋医院名、右：診療時間（OPEN/CLOSE）＋濃茶の電話ブロック、という構成で<b>横並びのナビがありません</b>（本家参考サイトと同じ作りです）。ダミーのナビ項目は削除し、ヘッダー全体のHTMLをこのファイルに書きます。リンク先は <code>#</code> で構いません。</span></div></div>
-      <div class="st"><span class="num">3</span><div class="tx"><b>右端固定の「無料相談はこちら」タブを作る</b><span>画面右端の縦書きタブは <code>position: fixed</code> ＋ <code>writing-mode: vertical-rl</code> で作ります。HTMLはヘッダーと同じファイルに置いてOKです。</span></div></div>
-      <div class="st"><span class="num">4</span><div class="tx"><b>スタイルを css/style.css に書く</b><span>「ここからトップページのスタイルを実装」というコメントの下に書き始めます。電話ブロックは <code>var(--c-cta)</code> のベタ塗り、ホバーで <code>var(--c-cta-hover)</code> に濃くします。</span></div></div>
+      <div class="st"><span class="num">1</span><div class="tx"><b>素材が揃っているか確認する</b><span><code>img/logo.svg</code> と <code>img/photos/</code> の23枚（3章でコピー済みのはず）。まだならここでコピーします。</span></div></div>
+      <div class="st"><span class="num">2</span><div class="tx"><b>&lt;header class="site-header"&gt; の中にカンプのヘッダーを書く</b><span>カンプのヘッダーは、左：ロゴ＋医院名、右：診療時間（OPEN/CLOSE）＋青の電話ブロック、という構成で<b>横並びのナビがありません</b>（本家参考サイトと同じ作りです）。リンク先は <code>#</code> で構いません。ロゴは <code>&lt;img src="img/logo.svg"&gt;</code> のように相対パスで。</span></div></div>
+      <div class="st"><span class="num">3</span><div class="tx"><b>右端固定の「無料相談はこちら」タブを作る</b><span>画面右端の縦書きタブは <code>position: fixed</code> ＋ <code>writing-mode: vertical-rl</code> で作ります。HTMLは <code>&lt;/header&gt;</code> の直後に置けばOKです。</span></div></div>
+      <div class="st"><span class="num">4</span><div class="tx"><b>スタイルを css/top.css に書く</b><span>「ここからトップページのスタイルを実装」というコメントの下に書き始めます。電話ブロックは <code>var(--c-cta)</code> のベタ塗り、ホバーで <code>var(--c-cta-hover)</code> に濃くします。</span></div></div>
     </div>
     <div class="check"><span class="ck">✔ 確認</span>ブラウザ幅を1440pxにして、カンプPC版の上端と並べて見比べる。ロゴ・診療時間・電話ブロックの並びと色が合っている。スクロールしても右端のタブが付いてくる。</div>
   </div>
@@ -681,11 +739,11 @@
 <div class="ex" id="step4">
   <div class="ex-head"><span class="stepno">STEP 4</span><b>FV・News帯・バナー4連</b><span class="time">目安 1日</span></div>
   <div class="ex-body">
-    <p class="file">編集： <code>front-page.php</code> の <code>&lt;section class="fv"&gt;</code> ＋ <code>css/style.css</code></p>
+    <p class="file">編集： <code>index.html</code> の <code>&lt;section class="fv"&gt;</code> ＋ <code>css/top.css</code></p>
     <div class="steps">
-      <div class="st"><span class="num">1</span><div class="tx"><b>FV（全幅写真＋コピー）</b><span>空っぽの <code>&lt;section class="fv"&gt;</code> の内側に書きます。写真は <code>photos/fv.jpg</code> を <code>object-fit: cover</code> で全幅に。左に暗くなるグラデーションを1枚重ねると、白い文字が読めるようになります。英文コピーはCardo・下に金茶のアンダーライン、和文コピーは両側に短い金茶罫（::before / ::after）。右下のスライダー用ドット4つは飾りでOK（動かすのは範囲外）。</span></div></div>
-      <div class="st"><span class="num">2</span><div class="tx"><b>News帯</b><span>FVの下端に重なる半透明の濃茶帯です。<code>position: absolute; bottom: 0</code> でFVに重ねます。中身のお知らせ1件ぶんは、今回は静的なHTMLで構いません。</span></div></div>
-      <div class="st"><span class="num">3</span><div class="tx"><b>バナー4連</b><span>FV直下に4枚横並び（写真＋英字ラベル＋テキスト、1px罫線囲み）。3枚目だけ濃茶の反転配色です。</span></div></div>
+      <div class="st"><span class="num">1</span><div class="tx"><b>FV（全幅写真＋コピー）</b><span>ひな形の空っぽの <code>&lt;section class="fv"&gt;</code> の内側に書きます。写真は <code>img/photos/fv.jpg</code> を <code>object-fit: cover</code> で全幅に。左に暗くなるグラデーションを1枚重ねると、白い文字が読めるようになります。英文コピーはCardo・下に青のアンダーライン、和文コピーは両側に短い青罫（::before / ::after）。右下のスライダー用ドット4つは飾りでOK（動かすのは範囲外）。</span></div></div>
+      <div class="st"><span class="num">2</span><div class="tx"><b>News帯</b><span>FVの下端に重なる半透明の紺帯です。<code>position: absolute; bottom: 0</code> でFVに重ねます。中身のお知らせ1件ぶんは、カンプの文言をそのまま書きます。</span></div></div>
+      <div class="st"><span class="num">3</span><div class="tx"><b>バナー4連</b><span>FV直下に4枚横並び（写真＋英字ラベル＋テキスト、1px罫線囲み）。3枚目だけ紺の反転配色です。</span></div></div>
     </div>
     <div class="check"><span class="ck">✔ 確認</span>FVの高さ・コピーの位置・書体・News帯の重なり・バナーの並びがカンプと合っている。特に「英文が明朝系（Cardo）になっているか」「写真に文字が埋もれていないか」を見る。</div>
   </div>
@@ -694,30 +752,30 @@
 <div class="ex" id="step5">
   <div class="ex-head"><span class="stepno">STEP 5</span><b>前半セクション（理念〜強み〜ネットワーク）</b><span class="time">目安 3日</span></div>
   <div class="ex-body">
-    <p class="file">編集： <code>front-page.php</code> ＋ <code>css/style.css</code></p>
+    <p class="file">編集： <code>index.html</code> ＋ <code>css/top.css</code></p>
     <p>ここからは「1ブロック作る → 反映して眺める」の繰り返しです。カンプの上から順に。</p>
     <div class="steps">
       <div class="st"><span class="num">a</span><div class="tx"><b>理念（斜めパターン背景）</b><span>中央寄せの明朝見出し＋本文。背景の斜めパターンは5章のスタイルガイド参照。このパターンは後のセクションでも使い回すので、<code>.diag</code> のような共通クラスにしておきます。</span></div></div>
-      <div class="st"><span class="num">b</span><div class="tx"><b>Promotion（動画枠）</b><span>「英字＋金茶ダッシュ＋和文」のセクション見出しをここで共通クラス化（この先ずっと使います）。動画は埋め込まず、写真＋再生ボタン風の円で「動画のように見える枠」を作ればOKです。背景に写真を敷いて暗くします。</span></div></div>
+      <div class="st"><span class="num">b</span><div class="tx"><b>Promotion（動画枠）</b><span>「英字＋青ダッシュ＋和文」のセクション見出しをここで共通クラス化（この先ずっと使います）。動画は埋め込まず、写真＋再生ボタン風の円で「動画のように見える枠」を作ればOKです。背景に写真を敷いて暗くします。</span></div></div>
       <div class="st"><span class="num">c</span><div class="tx"><b>Instagram（正方形4枚）</b><span>正方形は <code>aspect-ratio: 1/1</code> ＋ <code>object-fit: cover</code>。ホバーで写真がゆっくり拡大します（transform: scale）。</span></div></div>
-      <div class="st"><span class="num">d</span><div class="tx"><b>強み6枚（濃茶の帯）</b><span>背景は追加変数 <code>--c-primary-d</code>。カードは写真＋金茶の番号（Cardo）＋白見出し＋薄茶の本文。3列×2段のgridです。番号の右に伸びる短い金茶罫は ::after で。</span></div></div>
-      <div class="st"><span class="num">e</span><div class="tx"><b>専門医ネットワーク</b><span>白背景に中央寄せの導入 → 横長のチーム写真 → 写真に<b>重なる</b>濃茶パネル（negative margin で持ち上げます）→ アイコン4枚のカード。アイコンは一本線のSVGを自作するか、講師に相談してください。</span></div></div>
+      <div class="st"><span class="num">d</span><div class="tx"><b>強み6枚（紺の帯）</b><span>背景は追加変数 <code>--c-primary-d</code>。カードは写真＋青の番号（Cardo）＋白見出し＋薄い青グレーの本文。3列×2段のgridです。番号の右に伸びる短い青罫は ::after で。</span></div></div>
+      <div class="st"><span class="num">e</span><div class="tx"><b>専門医ネットワーク</b><span>白背景に中央寄せの導入 → 横長のチーム写真 → 写真に<b>重なる</b>紺パネル（negative margin で持ち上げます）→ アイコン4枚のカード。アイコンは一本線のSVGを自作するか、講師に相談してください。</span></div></div>
     </div>
-    <div class="check"><span class="ck">✔ 確認</span>ブロックごとにカンプと突き合わせ。背景のリズム（白→ベージュ斜め→白→濃茶→白）が合っているかを最初に見る。濃茶帯の文字が全部白系になっているか。</div>
+    <div class="check"><span class="ck">✔ 確認</span>ブロックごとにカンプと突き合わせ。背景のリズム（白→淡青斜め→白→紺→白）が合っているかを最初に見る。紺帯の文字が全部白系になっているか。</div>
   </div>
 </div>
 
 <div class="ex" id="step6">
   <div class="ex-head"><span class="stepno">STEP 6</span><b>中盤セクション（院長〜生涯コスト）</b><span class="time">目安 3日</span></div>
   <div class="ex-body">
-    <p class="file">編集： <code>front-page.php</code> ＋ <code>css/style.css</code></p>
+    <p class="file">編集： <code>index.html</code> ＋ <code>css/top.css</code></p>
     <div class="steps">
       <div class="st"><span class="num">a</span><div class="tx"><b>院長紹介（斜めパターン背景）</b><span>白いカード（写真＋役職＋在籍資格の箇条書き）を中央に。名前は載せません（カンプどおり）。</span></div></div>
       <div class="st"><span class="num">b</span><div class="tx"><b>電話CTA</b><span>2枚の枠（お電話でのご予約／無料相談）。電話番号はCardoで大きく。<b>番号と受付時間はカンプの文言をそのまま転記</b>——ここの写し間違いが一番の事故です。</span></div></div>
       <div class="st"><span class="num">c</span><div class="tx"><b>建物ワイド写真</b><span>全幅写真に明朝の白コピーを重ねます。FVで作った「暗くするグラデーション」の応用です。</span></div></div>
       <div class="st"><span class="num">d</span><div class="tx"><b>自費診療 3＋1</b><span>番号付きカード3枚＋横長カード1枚（テキスト＋写真の2カラム）。</span></div></div>
       <div class="st"><span class="num">e</span><div class="tx"><b>チームと設備（互い違い3行）</b><span>写真とテキストが左右交互に並びます。<code>flex-direction: row-reverse</code> を偶数行だけに当てるのがコツ。</span></div></div>
-      <div class="st"><span class="num">f</span><div class="tx"><b>生涯コスト（斜めパターン背景）</b><span>濃茶のリボン見出し＋グラフ＋丸アイコン4つ＋締めコピー＋ボタン。グラフは画像でもSVGでもOK（カンプの線が再現できていれば手段は問いません）。</span></div></div>
+      <div class="st"><span class="num">f</span><div class="tx"><b>生涯コスト（斜めパターン背景）</b><span>紺のリボン見出し＋グラフ＋丸アイコン4つ＋締めコピー＋ボタン。グラフは画像でもSVGでもOK（カンプの線が再現できていれば手段は問いません）。</span></div></div>
     </div>
     <div class="check"><span class="ck">✔ 確認</span>電話番号・受付時間をカンプと1文字ずつ照合。互い違いレイアウトがSPでどうなるべきかも、カンプSP版でここで一度見ておく。</div>
   </div>
@@ -726,24 +784,24 @@
 <div class="ex" id="step7">
   <div class="ex-head"><span class="stepno">STEP 7</span><b>後半セクション（医院紹介〜Access）</b><span class="time">目安 3日</span></div>
   <div class="ex-body">
-    <p class="file">編集： <code>front-page.php</code> ＋ <code>css/style.css</code></p>
+    <p class="file">編集： <code>index.html</code> ＋ <code>css/top.css</code></p>
     <div class="steps">
       <div class="st"><span class="num">a</span><div class="tx"><b>医院紹介（互い違い3行）</b><span>STEP 6-e と同じ型。写真が大きめ・テキストに枠線ボタンが付きます。</span></div></div>
       <div class="st"><span class="num">b</span><div class="tx"><b>診療項目一覧＋症例メニュー（斜めパターン背景）</b><span>白いアイコンカード9枚（3列grid）＋写真カード3枚。アイコンは一本線SVG。9枚は同じ部品の繰り返しなので、1枚できれば残りはコピーです。</span></div></div>
-      <div class="st"><span class="num">c</span><div class="tx"><b>Images＋Recruit</b><span>写真2枚の下に、大きな筆記体風の「Images」（Cardo italic・半透明の金茶）を重ねます。はみ出し配置は position: absolute で。</span></div></div>
-      <div class="st"><span class="num">d</span><div class="tx"><b>Topics（お知らせ・テーマの骨格を使う）</b><span>ここで既存の <code>&lt;section class="front-news"&gt;</code> を移動・改造して使います。<b>&lt;?php ?&gt; の穴と li の構造は触らない</b>こと。カード型に見せるのはCSSの仕事です。お知らせが1件も無いと確認できないので、管理画面から練習記事を3件入れてください（タイトルはカンプ参照）。カードのサムネイル写真は、今回は全記事共通の固定画像で構いません。</span></div></div>
-      <div class="st"><span class="num">e</span><div class="tx"><b>Case＋衛生管理</b><span>ベージュ帯に症例カード3枚＋注記。白い枠の衛生管理ボックスを続けます。</span></div></div>
-      <div class="st"><span class="num">f</span><div class="tx"><b>Group＋Access</b><span>グループ医院カード4枚（ダミー文言のまま）。Accessは地図の色面に、右側から濃茶のパネルを重ねます（position: absolute）。住所・駅・電話は転記ミス注意。</span></div></div>
+      <div class="st"><span class="num">c</span><div class="tx"><b>Images＋Recruit</b><span>写真2枚の下に、大きな筆記体風の「Images」（Cardo italic・半透明の青）を重ねます。はみ出し配置は position: absolute で。</span></div></div>
+      <div class="st"><span class="num">d</span><div class="tx"><b>Topics（お知らせ）</b><span>カード3枚（サムネイル＋日付＋タイトル）の横並びです。日付とタイトルはカンプの文言を転記します。実案件ではここがお知らせの投稿と連動する場所ですが、今回は静的なHTMLで構いません。サムネイル写真は全カード共通の固定画像でOKです。</span></div></div>
+      <div class="st"><span class="num">e</span><div class="tx"><b>Case＋衛生管理</b><span>淡青の帯に症例カード3枚＋注記。白い枠の衛生管理ボックスを続けます。</span></div></div>
+      <div class="st"><span class="num">f</span><div class="tx"><b>Group＋Access</b><span>グループ医院カード4枚（ダミー文言のまま）。Accessは地図の色面に、右側から紺のパネルを重ねます（position: absolute）。住所・駅・電話は転記ミス注意。</span></div></div>
     </div>
-    <div class="check"><span class="ck">✔ 確認</span>ブロックごとにカンプと突き合わせ。Topicsで「WPの管理画面から入れた記事が表示されているか」を必ず確認（静的に書いてしまっていたらやり直し）。</div>
+    <div class="check"><span class="ck">✔ 確認</span>ブロックごとにカンプと突き合わせ。Topicsの日付・タイトル、Accessの住所・駅・電話は、カンプと1文字ずつ照合する。</div>
   </div>
 </div>
 
 <div class="ex" id="step8">
   <div class="ex-head"><span class="stepno">STEP 8</span><b>フッター（カレンダー含む）</b><span class="time">目安 半日</span></div>
   <div class="ex-body">
-    <p class="file">編集： <code>footer.php</code> ＋ <code>css/style.css</code></p>
-    <p>いまは copyright の1行だけが入っています。<code>&lt;footer class="site-footer"&gt;</code> の中身を、カンプのフッター（濃茶背景に医院情報・サイトマップ・診療時間表・カレンダー）に作り替えます。カレンダーは <code>&lt;table&gt;</code> の静的なHTMLでOK。<code>&lt;?php wp_footer(); ?&gt;</code> より下は触らないでください。</p>
+    <p class="file">編集： <code>index.html</code> の <code>&lt;footer&gt;</code> ＋ <code>css/top.css</code></p>
+    <p>ひな形の空っぽの <code>&lt;footer class="site-footer"&gt;</code> の中身を、カンプのフッター（紺背景に医院情報・サイトマップ・診療時間表・カレンダー）に作ります。カレンダーは <code>&lt;table&gt;</code> で組みます。曜日と休診日の並びはカンプのとおりに（実在のカレンダーと合っている必要はありません）。</p>
     <div class="check"><span class="ck">✔ 確認</span>最下部までスクロールして、3カラムの構成・カレンダーの休診日のグレー・copyright がカンプと合っている。</div>
   </div>
 </div>
@@ -751,11 +809,11 @@
 <div class="ex" id="step9">
   <div class="ex-head"><span class="stepno">STEP 9</span><b>SP対応（スマホ表示）</b><span class="time">目安 2〜3日</span></div>
   <div class="ex-body">
-    <p class="file">編集： <code>css/style.css</code> のメディアクエリ ＋ <code>parts/menu-header-sp.php</code> ＋ <code>footer.php</code></p>
+    <p class="file">編集： <code>css/top.css</code> のメディアクエリ ＋ <code>index.html</code></p>
     <div class="steps">
-      <div class="st"><span class="num">1</span><div class="tx"><b>横並びを縦に落とす</b><span>style.css の末尾に <code>@media screen and (max-width: 768px){ ... }</code> を1つ作り、SP用の上書きをまとめて書きます。基本は「3〜4列 → 1〜2列」「互い違い → 縦積み」「重なり → 通常配置」。カンプSP版を上からなぞって、セクションごとに直していきます。</span></div></div>
-      <div class="st"><span class="num">2</span><div class="tx"><b>SPドロワーの中身を書き換える</b><span>menu-header-sp.php のロゴ・メニュー項目・住所・電話をこの案件の内容にします。<b><code>#drawer-checkbox</code> というIDだけは絶対に変えない</b>でください（開閉のJSとペアになっています）。</span></div></div>
-      <div class="st"><span class="num">3</span><div class="tx"><b>下部固定の電話バーを付ける</b><span>footer.php の <code>&lt;/footer&gt;</code> の直後に電話バーのHTMLを追記し、CSSで <code>position: fixed; bottom: 0</code>・PCでは非表示にします。右端の「無料相談」タブはSPでは非表示です。</span></div></div>
+      <div class="st"><span class="num">1</span><div class="tx"><b>横並びを縦に落とす</b><span>top.css の末尾に <code>@media screen and (max-width: 768px){ ... }</code> を1つ作り、SP用の上書きをまとめて書きます。基本は「3〜4列 → 1〜2列」「互い違い → 縦積み」「重なり → 通常配置」。カンプSP版を上からなぞって、セクションごとに直していきます。</span></div></div>
+      <div class="st"><span class="num">2</span><div class="tx"><b>ハンバーガーとドロワーを作る</b><span>JS不要の「チェックボックス式」で作ります。<code>&lt;input type="checkbox" id="drawer-check"&gt;</code> をCSSで隠し、<code>&lt;label for="drawer-check"&gt;</code> をハンバーガーの見た目にして、<code>#drawer-check:checked ~ .drawer{ ... }</code> で開閉を切り替えます（<code>~</code> が効くように、input とドロワーはHTML上で兄弟に並べます）。ドロワーの中身はロゴ・メニュー項目・住所・電話。<b>input の id と label の for のペアを崩すと開閉が壊れます。</b></span></div></div>
+      <div class="st"><span class="num">3</span><div class="tx"><b>下部固定の電話バーを付ける</b><span><code>&lt;/footer&gt;</code> の直後に電話バーのHTMLを追記し、CSSで <code>position: fixed; bottom: 0</code>・PCでは非表示にします。右端の「無料相談」タブはSPでは非表示です。</span></div></div>
     </div>
     <div class="check"><span class="ck">✔ 確認</span>開発者ツールのデバイスモードで幅375pxにして、カンプSP版と上から全ブロック突き合わせ。①ハンバーガーが出る ②タップでドロワーが開閉する ③下部に電話バーが固定される ④横スクロールが発生していない、の4点は必須。</div>
   </div>
@@ -787,22 +845,22 @@
 
 <div class="header"><span class="bar"></span><h3>チェックリスト</h3></div>
 <div class="rows" id="finalcheck">
-  <div class="row"><div class="t">書き換え残しゼロ</div><div class="d">エディタで「案件ごとに書き換え」を全体検索。残っていてよいのは今回やらないと決めた3箇所（GA4／JSON-LD／screenshot.png）だけ。ナビやフッターにダミーの「○○県○○市」が残っていたらアウトです</div></div>
-  <div class="row"><div class="t">PC表示の突き合わせ</div><div class="d">幅1440pxで comp-pc.jpg と上から順に見比べる。ヘッダー／FV・News帯・バナー／理念／Promotion／Instagram／強み6／ネットワーク／院長／CTA／建物／自費診療／チームと設備／生涯コスト／医院紹介／診療項目・症例メニュー／Images・Recruit／Topics／Case・衛生管理／Group／Access／フッター——全ブロック。とくに「背景の帯（白・斜めベージュ・濃茶）の順番」が1箇所でもズレていないか</div></div>
+  <div class="row"><div class="t">仮置きの消し忘れゼロ</div><div class="d">動作確認用に入れた仮の見出し・仮の背景色・試行錯誤のコメントアウトが残っていないか、index.htmlとtop.cssを上から流し読みする。「○○」のような未転記のダミー文言が1つでも残っていたらアウトです</div></div>
+  <div class="row"><div class="t">PC表示の突き合わせ</div><div class="d">幅1440pxで comp-pc.jpg と上から順に見比べる。ヘッダー／FV・News帯・バナー／理念／Promotion／Instagram／強み6／ネットワーク／院長／CTA／建物／自費診療／チームと設備／生涯コスト／医院紹介／診療項目・症例メニュー／Images・Recruit／Topics／Case・衛生管理／Group／Access／フッター——全ブロック。とくに「背景の帯（白・斜め淡青・紺）の順番」が1箇所でもズレていないか</div></div>
   <div class="row"><div class="t">SP表示の突き合わせ</div><div class="d">幅375pxで comp-sp.jpg と見比べる。ハンバーガー・ドロワー開閉・下部電話バー・横スクロールなしの4点も再確認</div></div>
-  <div class="row"><div class="t">ホバーの動き</div><div class="d">バナー（枠が金茶に）／Instagram（写真が拡大）／各ボタン・電話ブロック（濃くなる）。ホバーはカンプに写らないぶん、忘れやすいポイントです</div></div>
-  <div class="row"><div class="t">Topicsが「WPから」出ているか</div><div class="d">管理画面でお知らせのタイトルを1文字変えて、トップのTopicsに反映されるか確かめる。反映されなければ静的に書いてしまっています</div></div>
+  <div class="row"><div class="t">ホバーの動き</div><div class="d">バナー（枠が青に）／Instagram（写真が拡大）／各ボタン・電話ブロック（濃くなる）。ホバーはカンプに写らないぶん、忘れやすいポイントです</div></div>
+  <div class="row"><div class="t">フォルダを動かしても表示できるか</div><div class="d">フォルダ丸ごと別の場所（USBメモリや別フォルダ）に移動して、index.htmlを開き直す。画像やCSSが消えたら、絶対パスか、フォルダの外のファイルを参照しています。1章の約束が守れているかの最終テストです</div></div>
   <div class="row"><div class="t">文言の転記ミス</div><div class="d">診療時間・住所・電話番号を、カンプと1文字ずつ照合する。デザインより先に、ここの間違いが一番の事故になります</div></div>
 </div>
 
 <div class="header"><span class="bar"></span><h3>提出</h3></div>
-<p>手元の正本フォルダ（<code>nagashima-dc</code>）をzipにして、教育担当に渡してください。<em>提出物は「手元の正本」であって、テスト環境からダウンロードし直したものではありません</em>——2章の役割分担、最後まで守れましたか？　あわせて、テスト環境のURLも伝えて実際の表示を見てもらいます。</p>
-<p class="sub">この次の段階は「下層ページ（css/under.css）」と「本番サーバーへの反映」です。どちらも先輩と一緒にやります。</p>
+<p>作業フォルダ（<code>ndc-renewal</code>）をzipにして、教育担当に渡してください。<code>index_old.html</code> や下層フォルダは消さずにそのまま入れておきます。<em>zipを受け取った人が、解凍して index.html を開くだけで新しいトップと同じ見た目になる</em>——これが自己完結で作った成果物の完成条件です。渡す前に、上の「フォルダを動かしても表示できるか」をもう一度。あわせて、あなたのPCでも実際の表示を見てもらいます。</p>
+<p class="sub">この次の段階は「下層ページ」と「サーバーへのアップロード（公開）」です。どちらも先輩と一緒にやります。</p>
 
 <div class="onepoint">
   <span class="tag">研修のゴール</span>
   <h3>「カンプを渡されたら、一人でトップページを組める」</h3>
-  <p class="note">ここまで通せた人は、SLCのサイト制作の作業の型（複製 → 変数 → セクションごとに実装 → 突き合わせ）をひととおり体験したことになります。2件目からは、同じ型で速くなっていくだけです。できなかったSTEPがあっても、それが分かっていれば十分——どこで詰まったかを教育担当に伝えてください。</p>
+  <p class="note">ここまで通せた人は、SLCのサイト制作の作業の型（ひな形 → 変数 → セクションごとに実装 → 突き合わせ）をひととおり体験したことになります。2件目からは、同じ型で速くなっていくだけです。できなかったSTEPがあっても、それが分かっていれば十分——どこで詰まったかを教育担当に伝えてください。</p>
 </div>
 
 <!-- ================= 8章 ================= -->
@@ -813,17 +871,16 @@
 </section>
 
 <div class="rows">
-  <div class="row"><div class="t">画面が真っ白になった</div><div class="d">ほぼ100%、PHPファイルの書き間違いです（閉じタグの消し忘れなど）。直前に触ったファイルを、手元の正本と template_theme の元ファイルで見比べて戻す。分からなければ、そのファイルだけ元のtemplate_themeからコピーし直せば復旧します</div></div>
-  <div class="row"><div class="t">CSSを直したのに変わらない</div><div class="d">①zipを作り直さずに古いzipを上げていないか ②アップロード後に「置き換える」を選んだか ③ブラウザのスーパーリロード（Ctrl+Shift+R）を試したか、の順で確認。テーマ側のキャッシュ対策は自動なので、だいたい①です</div></div>
-  <div class="row"><div class="t">フォントが明朝にならない</div><div class="d">functions.php のWebフォントの区間が、コメントのままになっていないか確認（<code>/*</code> と <code>*/</code> が残っていたら、まだコメントです）。次に、basic.css の font-family のスペルを確認</div></div>
-  <div class="row"><div class="t">SPメニューが開かない</div><div class="d"><code>#drawer-checkbox</code> のIDを変えていないか確認。menu-header-sp.php を編集するとき、input と label の for 属性のペアを崩すと開閉が壊れます</div></div>
-  <div class="row"><div class="t">画像が表示されない</div><div class="d">PHPの中の画像パスは <code>get_theme_file_uri( '/images/xxx.svg' )</code> という書き方になっています。既存の行をコピーして、ファイル名だけ変えるのが確実です。images/ にファイルを入れ忘れて zip を作っているパターンも多いです</div></div>
-  <div class="row"><div class="t">アップロードが失敗する</div><div class="d">まずもう一度試す（サーバー側の一時的な503はよくあります）。続くなら、zipの中に <code>node_modules/</code> などの巨大フォルダが紛れていないか、zipがテーマフォルダ自体を包んでいるか（中身だけ圧縮していないか）を確認</div></div>
-  <div class="row"><div class="t">テスト環境を壊したかも</div><div class="d">慌てない。正本は手元のフォルダにあります。自分のテーマを入れ直して直るならそれでOK。直らない・他に影響していそうなら、それ以上触らずに教育担当へ。「何をしたら、どうなったか」をそのまま言えれば十分です</div></div>
+  <div class="row"><div class="t">index_old.html（旧トップ）や下層ページが崩れて表示される</div><div class="d">正常です。既存ページはSSI（3章参照）でサーバーが共通部品とCSSを差し込む前提なので、ローカルで開くとヘッダーもスタイルも当たりません。壊したわけではないので、参考書として中身を読む分には問題ありません</div></div>
+  <div class="row"><div class="t">CSSが1ミリも効いていない</div><div class="d">ほぼ100%、<code>&lt;link&gt;</code> のパスの書き間違いです。<code>href="css/top.css"</code> のスペルと、top.css が本当に css フォルダの中にあるか（フォルダの外に作ってしまうミスが多い）を確認。ファイル名の <code>.css</code> が <code>.css.txt</code> になっているパターンもあります</div></div>
+  <div class="row"><div class="t">CSSを直したのに変わらない</div><div class="d">①保存したか（VS Codeのタブに「●」が付いていたら未保存） ②スーパーリロード（Ctrl+Shift+R）を試したか ③クラス名がHTML側と1文字ずつ一致しているか、の順で確認。だいたい①です</div></div>
+  <div class="row"><div class="t">フォントが明朝にならない</div><div class="d"><code>&lt;head&gt;</code> にGoogle Fontsの <code>&lt;link&gt;</code> が3行入っているか確認。次に font-family のスペル（Shippori Mincho）。開発者ツールの Computed → Rendered Fonts を見れば、実際にどのフォントで描画されたか分かります</div></div>
+  <div class="row"><div class="t">SPメニューが開かない</div><div class="d">input の <code>id</code> と label の <code>for</code> が一致しているか確認。次にHTMLの並び順——<code>#drawer-check:checked ~ .drawer</code> の <code>~</code> は「あとに続く兄弟」にしか効かないので、input がドロワーより上に、同じ親の中にある必要があります</div></div>
+  <div class="row"><div class="t">画像が表示されない</div><div class="d">相対パスの綴り（<code>img/photos/fv.jpg</code>）と、img/ へのコピー忘れを確認。大文字小文字の違い（fv.jpg と FV.jpg）は、自分のPCでは表示できてもサーバーに上げた瞬間に壊れるので、今のうちに揃えるクセを付けてください</div></div>
   <div class="row"><div class="t">横スクロールが出る（SP）</div><div class="d">幅を px で固定した要素が犯人です。開発者ツールで要素を1つずつ消しながら特定し、width を % や max-width に変えます</div></div>
 </div>
 
-<p class="sub" style="margin-top:60px;text-align:center;">株式会社SLC　制作研修資料｜このテーマの構成が変わったときは、この手順書も合わせて更新してください。</p>
+<p class="sub" style="margin-top:60px;text-align:center;">株式会社SLC　制作研修資料｜社内の作り方が変わったときは、この手順書も合わせて更新してください。</p>
 
 </div>
 
@@ -874,7 +931,7 @@
   var STORE='slc-theme-guide-progress-v1';
 
   var SKILLS=[
-    {name:'転送のじゅつ',   sub:'複製と反映のループ',   keys:['step0']},
+    {name:'旅立ちのじゅつ', sub:'ひな形と表示確認',     keys:['step0']},
     {name:'変数まほう',     sub:'色と文字を変数で持つ', keys:['step1','step2']},
     {name:'先陣きり',       sub:'ヘッダーとFV',         keys:['step3','step4']},
     {name:'れんげき',       sub:'セクションの量産',     keys:['step5','step6','step7']},
@@ -882,10 +939,10 @@
     {name:'かんてい',       sub:'検品と提出',           keys:['fc0','fc1','fc2','fc3','fc4','fc5']}
   ];
   var LEVELS=[
-    {min:0,  lv:1, t:'駆け出し冒険者', a:'テーマを動かせる'},
+    {min:0,  lv:1, t:'駆け出し冒険者', a:'ひな形を表示できる'},
     {min:2,  lv:2, t:'見習いコーダー', a:'変数で色と文字を変えられる', g:'ペン'},
     {min:5,  lv:3, t:'CSS使い',        a:'1ブロックを自力で組める',     g:'マント'},
-    {min:9,  lv:4, t:'テーマ職人',     a:'トップを通しで組める',        g:'たて'},
+    {min:9,  lv:4, t:'ページ職人',     a:'トップを通しで組める',        g:'たて'},
     {min:14, lv:5, t:'WEB勇者',        a:'自分で検品して出せる',        g:'おうかん'}
   ];
 
